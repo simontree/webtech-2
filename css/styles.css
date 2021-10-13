@@ -1,0 +1,36 @@
+body{
+    font-family: "Roboto", sans-serif;
+}
+
+.container {
+    text-align: center;
+    display: grid;
+    grid-template-columns: 20ch 1fr 200px;
+    grid-template-rows: 20% 300px auto;
+    grid-template-areas: 
+      "header header header"
+      "main main main"
+      "footer footer footer"
+}
+
+header {
+    grid-area: header;
+}
+
+main {
+    grid-area: main;
+}
+
+footer {
+    grid-area: footer;
+}
+
+@media(max-width: 800px){
+    .container {
+      grid-template-columns: 1fr;
+      grid-template-areas: 
+        "header"
+        "main"
+        "footer"
+    }
+  }
