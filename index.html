@@ -6,13 +6,17 @@
     <meta name="author" content="Ricardo Hendrichs & Robert Schulz">
     <link rel="shortcut icon" href="images/favicon.ico">
     <link rel="stylesheet" href="css/styles.css">
-    <title>Reisekarte ins Nirwana</title>
+    <title>Deine Reisekarte ins Nirwana</title>
 </head>
 
 <body>
     <div class="container">
         <header>
-            <h1>Deine Reisekarte ins Nirwana</h1>
+            <div class="menu-container-index">
+                <img class="logo" src="images/globe.png">
+                <h1>Deine Reisekarte ins Nirwana</h1>
+            </div>
+           
         </header>
         <main>
             <h3>
@@ -23,7 +27,7 @@
                 verwalten.
             </h3>
             <table class="center">
-                <form action="#">
+                <form action="map.html">
                 <tr>
                     <td>
                         <label for="email">E-Mail</label>
@@ -37,11 +41,13 @@
                     <td><input type="password"/></td>
                 </tr> 
             </table><br>
-                <input type="submit" value="Jetzt einloggen"/>
+                <a href="map.html"><button type="button">Einloggen</button></a>
+                <!-- später mit backend nutzen
+                    <input type="submit" value="Jetzt einloggen"/>-->
                 </form>
             </main>
         <footer>
-            Copyright 2021
+            © 2021
         </footer>
     </div>
 </body>

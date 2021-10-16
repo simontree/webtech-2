@@ -12,17 +12,19 @@ body{
       "footer"
 }
 
-header {
-    grid-area: header;
+.menu-container{
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    margin-top: 18px;
+    gap: 20px;
 }
-
-main {
-    grid-area: main;
-    line-height: 30px;   
-}
-
-footer {
-    grid-area: footer;
+.menu-container-index{
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 10px;
 }
 
 @media(max-width: 800px){
@@ -35,7 +37,40 @@ footer {
     }
   }
 
-  .center{
-      margin-left:auto;
-      margin-right: auto;
-  }
+header {
+    grid-area: header;
+}
+
+main {
+    grid-area: main;
+    line-height: 30px; 
+    background-color:rgb(221, 254, 255);  
+}
+
+footer {
+    grid-area: footer;
+    position:fixed;
+    bottom: 5%;
+    left:46%;
+}
+
+.center{
+    margin-left:auto;
+    margin-right: auto;
+}
+
+.mapimage{
+    max-width: 100%;
+    height: auto;
+}
+
+.logo{
+    width: 30px;
+    height: 30px;
+}
+
+li{
+    display: inline;
+    margin-right: 50px;
+    float: left;
+}
