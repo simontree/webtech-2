@@ -97,6 +97,10 @@ a{
     text-decoration: none;
 }
 
-.triptable *{
+.triptable{
     width: 150px;
+}
+
+.formularadd{
+    padding: 50px;
 }
