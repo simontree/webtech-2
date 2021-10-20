@@ -22,6 +22,7 @@ body{
       "footer footer"
 }
 
+
 .menu-container{
     display: flex;
     align-items: baseline;
@@ -100,6 +101,12 @@ a{
     text-decoration: none;
 }
 
+
+
+.formularadd{
+    padding: 50px;
+}
+
 td{
     width: 250px;
     border: black solid 1px;
@@ -109,3 +116,4 @@ td{
     border: rgb(145, 145, 145) solid 1px;
     
 }
+
