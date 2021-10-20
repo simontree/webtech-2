@@ -49,12 +49,13 @@ body{
 
 header {
     grid-area: header;
+    background-color: #d6ddff;
 }
 
 main {
     grid-area: main;
     line-height: 30px; 
-    background-color:rgb(221, 254, 255);  
+    padding: 40px;
 }
 
 footer {
@@ -68,6 +69,9 @@ footer {
     padding: 10px;
 }
 
+.menu li{
+    transition: all 0.3s linear 0s;
+}
 
 .mapimage{
     max-width: 100%;
