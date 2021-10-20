@@ -55,7 +55,7 @@ body{
 @media(max-width: 790px){
     .container-after-login-map {
       grid-template-columns: 1fr;
-      grid-template-rows: auto;
+      grid-template-rows: 180px auto;
       grid-template-areas: 
         "header"
         "aside"
@@ -64,7 +64,7 @@ body{
     }
     .container-after-login-triplist {
         grid-template-columns: 1fr;
-        grid-template-rows: auto;
+        grid-template-rows: 180px auto;
         grid-template-areas: 
           "header"
           "main"
@@ -73,15 +73,16 @@ body{
     .menu-container{
         display: flex;
         flex-wrap: wrap;
-        height: 100px;
+        height: 160px;
     }
     header{
         grid-area: header;
-        height: 200px;
+        height: 200px !important;
     }
     main{
         grid-area: main;
-        font-size: 11px;
+        font-size: 11px;        
+        justify-items: center;
     }
     aside{
         grid-area: aside;
@@ -97,7 +98,7 @@ body{
     h2{
         font-size: 23px;
         margin: auto;
-        margin-right: 40px;
+      
     }
     .logo{
         margin: auto;
@@ -109,8 +110,12 @@ body{
 
 header {
     grid-area: header;
-    width: 100%;
-    background-color: #d6ddff;
+    position: fixed;
+    left: 0%;
+    top:0%;
+    right: 0%;
+    height: 120px;
+    background-color: #e1ecff;   
 }
 
 main {
@@ -180,6 +185,12 @@ li{
     background-color: rgb(188, 210, 255);
 }
 
+.journeylist a:hover{
+    padding: 12px;
+    border-radius: 6px;
+    background-color: rgb(196, 215, 255);
+}
+
 a{  
     color: black;
     text-decoration: none;
@@ -196,4 +207,5 @@ a{
 
 .triptable{
     border: rgb(145, 145, 145) solid 1px;
+    margin: auto;
 }
