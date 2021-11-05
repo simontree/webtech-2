@@ -7,6 +7,7 @@
     <link rel="shortcut icon" href="images/favicon.ico">
     <link rel="stylesheet" href="css/styles.css">
     <title>Deine Reisekarte ins Nirwana</title>
+    <script src="js/login.js"></script>
 </head>
 
 <body>
@@ -33,12 +34,11 @@
                 </tr>
                 <tr>
                     <td><label for="password">Passwort</label></td>
-                    <td><input type="password"/></td>
+                    <td><input type="password" id="pw"/></td>
                 </tr> 
             </table><br>
-                <a href="map.html"><button type="button">Einloggen</button></a>
-                <!-- später mit backend nutzen
-                    <input type="submit" value="Jetzt einloggen"/>-->
+                <!--<a href="map.html"><button type="button">Einloggen</button></a>-->
+                    <input type="submit" value="Jetzt einloggen" onclick="pwValidation()"/>
                 </form>
             </main>
         <footer>
