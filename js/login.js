@@ -1,10 +1,11 @@
 function pwValidation(){
-    var mail = document.querySelector('#email');
-    var password = document.querySelector('#pw');
+    var mail = document.querySelector('#email').value;
+    var password = document.querySelector('#pw').value;
 
     if (mail === "huehne@htw-berlin.de" && password === "hunter2"){
-        alert ("Login erfolgreich");
-        window.location = "map.html";
-        return true;
+        window.location.replace("map.html"); 
+        //window.open("map.html", "_blank");
+    }else{
+        alert ("Falsche Login Daten");
     }
 }

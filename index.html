@@ -27,7 +27,6 @@
                 verwalten.
             </h3>
             <table class="login">
-                <form action="map.html">
                 <tr>
                     <td><label for="email">E-Mail</label></td>
                     <td><input type="email" id="email" required/></td>
@@ -36,10 +35,12 @@
                     <td><label for="password">Passwort</label></td>
                     <td><input type="password" id="pw"/></td>
                 </tr> 
-            </table><br>
-                <!--<a href="map.html"><button type="button">Einloggen</button></a>-->
-                    <input type="submit" value="Jetzt einloggen" onclick="pwValidation()"/>
-                </form>
+            <tr>
+                <td></td>
+                <td>
+                <input type="submit" id="submit" value="Jetzt einloggen" onClick="pwValidation()"/>
+            </td></tr>        
+                    </table>    
             </main>
         <footer>
             © 2021
