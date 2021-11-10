@@ -7,6 +7,7 @@
     <link rel="shortcut icon" href="images/favicon.ico">
     <link rel="stylesheet" href="css/styles.css">
     <title>Deine Reisekarte ins Nirwana</title>
+    <script src="js/journeys.js"></script>
 </head>
 
 <body>
@@ -56,18 +57,18 @@
             </table>
             <div class="formularadd">
                 <label for="tripname">Reisename:</label>
-                <input type="text" style="height: 15px; resize: none"> </input>
+                <input id="tripname" type="text" style="height: 15px; resize: none"> </input>
                 <br>
                 <label for="start" >Anfang:</label>
-                <input type="date" style="height: 15px; resize: none"> </input>
+                <input id="startDate" type="date" style="height: 15px; resize: none"> </input>
                 <br>
                 <label for="end">Ende:</label>
-                <input type="date" style="height: 15px; resize: none"> </input>
+                <input id="endDate" type="date" style="height: 15px; resize: none"> </input>
                 <br>
                 <label for="country">Reiseland:</label>
-                <input type="text" style="height: 15px; resize: none"> </input>
+                <input id="country" type="text" style="height: 15px; resize: none"> </input>
                 <br>
-                <a><button class="addTrip" type="button">Hinzufügen</button></a>
+                <a><button class="addTrip" type="button" onClick="addJourney()">Hinzufügen</button></a>
             </div>
         </main>
         <footer>

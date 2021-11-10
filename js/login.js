@@ -4,7 +4,6 @@ function pwValidation(){
 
     if (mail === "huehne@htw-berlin.de" && password === "hunter2"){
         window.location.replace("map.html"); 
-        //window.open("map.html", "_blank");
     }else{
         alert ("Falsche Login Daten");
     }
