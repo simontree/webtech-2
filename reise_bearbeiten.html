@@ -20,53 +20,72 @@
                         <li><a href="map.html">Karte</a></li>
                         <li><a href="reise_hinzufugen.html">Reise hinzufügen</a></li>
                         <li><a href="reise_bearbeiten.html">Reise bearbeiten</a></li>
+                        <li><a href="index.html" id="logoutBtn">Logout</a></li>
                     </ul>
                 </nav>
             </div>
         </header>
         <main>
-            <table class="triptable">
+            <h2>Geplante Reisen: </h1><br>
+                <div id="btnWrapper">
+                <table class="triptable">
                 <tr>
-                    <th>Bearbeiten</th>
-                    <th>Löschen</th>
                     <th>Reisename</th>
                     <th>Anfang</th>
                     <th>Ende</th>
                     <th>Reiseland</th>
                 </tr>
                 <tr>
-                    <td><input type="checkbox"></td>
-                    <td><input type="checkbox"></td>
-                    <td>Surfen & Entspannung</td>
-                    <td>07.09.2021</td>
-                    <td>14.09.2021</td>
-                    <td>Kuba</td>
+                    <td id="nameTrip1">     Surfen & Entspannung</td>
+                    <td id="startTrip1">    07.09.2021</td>
+                    <td id="endTrip1">      14.09.2021</td>
+                    <td id="countryTrip1">  Kuba</td>
+                    <td id="btn"><button class="editBtn" id="editTrip-1">Bearbeiten</td>
+                    <td id="btn"><button class="editBtn" id="deleteTrip-1">Löschen</td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox"></td>
-                    <td><input type="checkbox"></td>
-                    <td>Spa-Woche </td>
-                    <td>02.10.2021</td>
-                    <td>08.10.2021</td>
-                    <td>Spanien</td>
+                    <td id="nameTrip2">   Spa-Woche </td>
+                    <td id="startTrip2">  02.10.2021</td>
+                    <td id="endTrip2">    08.10.2021</td>
+                    <td id="countryTrip2">Spanien</td>
+                    <td id="btn"><button class="editBtn" id="editTrip-2">Bearbeiten</td>
+                    <td id="btn"><button class="editBtn" id="deleteTrip-2">Löschen</td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox"></td>
-                    <td><input type="checkbox"></td>
-                    <td>Erholung unter Palmen </td>
-                    <td>05.01.2022</td>
-                    <td>12.01.2022</td>
-                    <td>Ungarn</td>
+                    <td id="nameTrip3">   Erholung unter Palmen </td>
+                    <td id="startTrip3">  05.01.2022</td>
+                    <td id="endTrip3">    12.01.2022</td>
+                    <td id="countryTrip3">Ungarn</td>
+                    <td id="btn"><button class="editBtn" id="editTrip-3">Bearbeiten</td>
+                    <td id="btn"><button class="editBtn" id="deleteTrip-3">Löschen</td>
                 </tr>
             </table>
-            <br>
-            <button><h4>Jetzt ändern</h4></button>
+        </div>
+        
+        <!--Popup zum Reise bearbeiten-->
+        <div class="form-popup">
+            <form class="form-container">
+                <h1>Reise bearbeiten</h1>
+                
+                <label for="tripname">Reisename</label>
+                <input type="text" name="tripname" id="editTripname">
+                <label for="startDate">Anfang</label>
+                <input type="date" name="startDate" id="editStartDate">
+                <label for="endDate">Ende</label>
+                <input type="date" name="endDate" id="editEndDate">
+                <label for="country">Reiseland</label>
+                <input type="text" name="country" id="editCountry">
+                <button id="saveEdit">Änderungen übernehmen</button>
+                <button id="cancelEdit">Abbrechen</button>
+            </form>
+        </div>
+    
         </main>
         <footer>
             © 2021
         </footer>
-
     </div>
+    <script src="js/editJourney.js"></script>
 </body>
 
  </html>
