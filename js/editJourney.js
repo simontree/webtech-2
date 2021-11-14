@@ -11,11 +11,11 @@ const cancelEditBtn = document.querySelector("#cancelEdit");
 //falls bereits Daten in localstorage vorhanden - wichtig nach reload der Seite
 if(dataArray.length>0){
     for(let i=0;i<dataArray.length;i++){
-        let row = table.insertRow(4+i);
-        let cell1 = row.insertCell(0);
-        let cell2 = row.insertCell(1);
-        let cell3 = row.insertCell(2);
-        let cell4 = row.insertCell(3);
+        var row = table.insertRow(4+i);
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+        var cell3 = row.insertCell(2);
+        var cell4 = row.insertCell(3);
     
         cell1.appendChild(document.createTextNode(dataArray[i].trips.tripname));
         cell2.appendChild(document.createTextNode(dataArray[i].trips.startDate));
@@ -24,7 +24,49 @@ if(dataArray.length>0){
     }
 }
 
-//Reisen bearbeiten
+/*
+//Reise-Dummys hinzufügen
+var genesisArray = [];
+
+var header = { 'trips': {0: "Reisename", 1: "Anfang", 2: "Ende",3:"Reiseland", 4:""}};
+var kubaTrip = { 'trips' : {'tripname': "Surfen & Entspannung", 'startDate': "07.09.2021", 'endDate': "14.09.2021", 'country': "Kuba"}};
+var spainTrip = { 'trips' : {'tripname': "Spa-Woche", 'startDate': "02.10.2021", 'endDate': "08.10.2021", 'country': "Spanien"}};
+var hungaryTrip = { 'trips' : {'tripname': "Erholung unter Palmen ", 'startDate': "05.01.2022", 'endDate': "12.01.2022", 'country': "Ungarn"}};
+
+genesisArray.push(header);
+genesisArray.push(kubaTrip);
+genesisArray.push(spainTrip);
+genesisArray.push(hungaryTrip);
+
+if(dataArray.length===0){
+    
+
+    // for(var i=0; i< 6;i++){          //funzt noch nicht ganz
+    // var row = table.insertRow(-1);//header
+    //     var headerCell = row.appendChild(document.createElement("TH"));
+    //     headerCell.innerText = genesisArray[0].trips[i];
+    // }
+
+    for(let i=0;i<5;i++){
+
+        window['editBtn'+i] = document.createElement("button");
+        window['delBtn'+i] = document.createElement("button");
+        var editT = document.createTextNode("Bearbeiten");
+        var delT = document.createTextNode("Löschen");
+
+        var cell1 = row.insertCell(0).appendChild(document.createTextNode(genesisArray[i].trips.tripname));
+        var cell2 = row.insertCell(1).appendChild(document.createTextNode(genesisArray[i].trips.startDate));
+        var cell3 = row.insertCell(2).appendChild(document.createTextNode(genesisArray[i].trips.endDate));
+        var cell4 = row.insertCell(3).appendChild(document.createTextNode(genesisArray[i].trips.country));
+        var cell5 = row.insertCell(4).appendChild(window['editBtn'+i]);
+        var cell6 = row.insertCell(5).appendChild(window['delBtn'+i]);
+        window['editBtn'+i].appendChild(editT);
+        window['delBtn'+i].appendChild(delT);
+    }
+}
+*/
+
+//Reisen bearbeiten     -> TODO: von localStorage aus zugreifen
 btnWrapper.addEventListener('click', (event) => {
     //checken ob Klick auf Button nicht auf div "btnWrapper"
     const isButton = event.target.nodeName === 'BUTTON';
@@ -32,7 +74,7 @@ btnWrapper.addEventListener('click', (event) => {
         return;
     }
     for(i=1; i<4; i++){
-    if(event.target.id = window['editTrip-'+i]){   //dynamische Parameter für Trip2-3?? 
+    if(event.target.id = window['editTrip-'+i]){   //dynamische Parameter für Trip2-3?? -> funktioniert nicht
         
         window['name'+i] = document.querySelector("#nameTrip"+i);
         window['start'+i] = document.querySelector("#startTrip"+i);  //string muss noch in date geparsed werden
