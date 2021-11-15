@@ -6,7 +6,7 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png	', {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(mymap);
 
-const visitedCountries = Array.from(document.querySelector('#besuchte').getElementsByTagName('li'));
+const visitedCountries = mapToTextArray(Array.from(document.querySelector('#besuchte').getElementsByTagName('li')));
 console.log(mapToTextArray(visitedCountries));
 
 const loadData = async () => {
@@ -16,13 +16,27 @@ const loadData = async () => {
 
 const displayData = async () => {
   const geoJson = await loadData();
-  console.log(geoJson);
+  //console.log(geoJson);
   const filteredData = {
     ...geoJson,
     features: geoJson.features.filter(feature => 
                                   !visitedCountries.includes(feature.properties.name))
   };
-  L.geoJSON(filteredData).addTo(mymap);
+  const filteredVisited = {
+...geoJson,
+    features: geoJson.features.filter(feature => 
+                                  visitedCountries.includes(feature.properties.name))
+  };
+  L.geoJSON(filteredData,{
+    style: function(feature){
+      return {color: '#000000'};
+    }
+  }).addTo(mymap);
+  L.geoJSON(filteredVisited,{
+    style: function(feature){
+      return {color: '#4000b0'};
+    }
+  }).addTo(mymap);
   
 }
 
