@@ -7,6 +7,19 @@
     <link rel="shortcut icon" href="images/favicon.ico">
     <link rel="stylesheet" href="css/styles.css">
     <title>Deine Reisekarte ins Nirwana</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin=""/>
+     <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin=""></script>
+    <style>
+        #map {
+        height: 100%;
+        width: 100%;
+      }
+    </style>
 </head>
 
 <body>
@@ -26,19 +39,20 @@
         </header>
 
         <sidebar>
-            <ul class="journeylist">
+            <ul class="journeylist" id="besuchte">
                <li><h2>Besuchte Länder</h2></li>
-                <li><a href="#">Kuba</a></li>
-                <li><a href="#">Spanien</a></li>
-                <li><a href="#">Ungarn</a></li>
+                <li><a href="#">Cuba</a></li>
+                <li><a href="#">Spain</a></li>
+                <li><a href="#">Hungary</a></li>
             </ul>
         </sidebar>
         <main>
-        <img class="mapimage" src="images/globalmap.jpg">
+        <div id='map'></div>
         </main>
         <footer>
             © 2021
         </footer>
     </div>
+    <script src="js/map.js"></script>
 </body>
  </html>
