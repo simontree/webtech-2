@@ -66,6 +66,9 @@ if(dataArray.length > 0){
 
             delBtn.addEventListener('click', (event) => {
                 event.preventDefault();
+                table.deleteRow('${index}');
+                dataArray.splice('${index}',1);     //funzt noch nicht ganz
+                
                 console.log('Delete', trip.tripname);
             })
         }
@@ -113,8 +116,6 @@ if(window.location.pathname==="/reise_bearbeiten.html"){
     })
 
 }
-
-
 
 if(window.location.pathname==="/reise_hinzufugen.html"){
 addButton.addEventListener('click', function(){
