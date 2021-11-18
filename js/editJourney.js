@@ -13,9 +13,9 @@ const form = document.querySelector(".form-popup");
 //Reise-Dummys hinzufügen falls noch keine Daten in dataArray
 if(dataArray.length===0){
     var trips = [
-        {tripname: "Surfen & Entspannung", startDate: "07.09.2021", endDate: "14.09.2021", country: "Kuba", id: 0},
-        {tripname: "Spa-Woche", startDate: "02.10.2021", endDate: "08.10.2021", country: "Spanien", id: 1},
-        {tripname: "Erholung unter Palmen ", startDate: "05.01.2022", endDate: "12.01.2022", country: "Ungarn", id: 2}
+        {tripname: "Surfen & Entspannung", startDate: "2021-09-07", endDate: "2021-09-14", country: "Kuba", id: 0},
+        {tripname: "Spa-Woche", startDate: "2021-10-02", endDate: "2021-10-08", country: "Spanien", id: 1},
+        {tripname: "Erholung unter Palmen ", startDate: "2022-01-05", endDate: "2022-01-12", country: "Ungarn", id: 2}
     ]
     dataArray.push(...trips);
 }
@@ -47,11 +47,11 @@ if(dataArray.length > 0){
                 event.preventDefault();
                 openForm();
                 document.querySelector('input[name="tripname"]').value = cell1.innerText;
-                document.querySelector('input[name="startDate"]').value = cell2.innerText;
+                document.querySelector('input[name="startDate"]').value = cell2.innerText; 
                 document.querySelector('input[name="endDate"]').value = cell3.innerText;                
                 document.querySelector('input[name="country"]').value = cell4.innerText;;
 
-                form.addEventListener('change', () =>{
+                form.addEventListener('change', (event) =>{
                     cell1.innerText = document.querySelector('input[name="tripname"]').value;
                     cell2.innerText = document.querySelector('input[name="startDate"]').value;
                     cell3.innerText = document.querySelector('input[name="endDate"]').value;
@@ -60,15 +60,21 @@ if(dataArray.length > 0){
                     trip.tripname = document.querySelector('input[name="tripname"]').value;
                     trip.startDate = document.querySelector('input[name="startDate"]').value;
                     trip.endDate = document.querySelector('input[name="endDate"]').value;                
-                    trip.country = document.querySelector('input[name="country"]').value;
+                    trip.country = document.querySelector('input[name="country"]').value;  
                 })
+                console.log('Edit', trip.tripname);
             })
 
             delBtn.addEventListener('click', (event) => {
+                if(dataArray.length === 1){
+                    localStorage.clear();
+                    dataArray = [];
+                    event.stopPropagation();
+                }
                 event.preventDefault();
                 table.deleteRow('${index}');
-                dataArray.splice('${index}',1);     //funzt noch nicht ganz
-                
+                dataArray.splice(trip.id,1);
+                localStorage.setItem('trips', JSON.stringify(dataArray));
                 console.log('Delete', trip.tripname);
             })
         }
@@ -111,8 +117,8 @@ if(window.location.pathname==="/reise_bearbeiten.html"){
         closeForm();
     })
     cancelEditBtn.addEventListener('click', (event) => {
-        event.stopPropagation();
         closeForm();
+        event.stopPropagation();
     })
 
 }
@@ -123,7 +129,7 @@ addButton.addEventListener('click', function(){
     var row = table.insertRow(dataArray.length);
     
     let tripname = document.querySelector("#tripname").value;
-    let startDate = document.querySelector("#startDate").value; // Date format noch ändern
+    let startDate = document.querySelector("#startDate").value; // Date Formatierung fehlt noch
     let endDate = document.querySelector("#endDate").value;     //
     let country = document.querySelector("#country").value;
 
