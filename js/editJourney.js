@@ -8,6 +8,7 @@ const btnWrapper = document.querySelector("#btnWrapper");
 const saveEditBtn = document.querySelector("#saveEdit");
 const cancelEditBtn = document.querySelector("#cancelEdit");
 var buttonIds = [];
+const form = document.querySelector(".form-popup");
 
 //Reise-Dummys hinzufügen falls noch keine Daten in dataArray
 if(dataArray.length===0){
@@ -20,19 +21,19 @@ if(dataArray.length===0){
 }
 
 if(dataArray.length > 0){
-
     dataArray.forEach(trip => {
         var row = table.insertRow('${index}');
         const cell1 = row.insertCell(0).appendChild(document.createElement('td'));
         const cell2 = row.insertCell(1).appendChild(document.createElement('td'));
         const cell3 = row.insertCell(2).appendChild(document.createElement('td'));
         const cell4 = row.insertCell(3).appendChild(document.createElement('td'));
-        
+
         cell1.innerText = trip.tripname;
         cell2.innerText = trip.startDate;
         cell3.innerText = trip.endDate;
         cell4.innerText = trip.country;
-        
+        buttonIds.push(trip.id);
+
         if(window.location.pathname==="/reise_bearbeiten.html"){
             const editBtn = row.insertCell(4).appendChild(document.createElement('button'));
             const delBtn = row.insertCell(5).appendChild(document.createElement('button'));
@@ -40,12 +41,27 @@ if(dataArray.length > 0){
             editBtn.id = "editBtn"+trip.id;
             delBtn.innerText = 'Löschen';
             delBtn.id = "delBtn"+trip.id;
-            //zum Iterieren für Style s.u.
-            buttonIds.push(trip.id);
+            //zum Iterieren für Style s.u.    
 
             editBtn.addEventListener('click', (event) => {
                 event.preventDefault();
                 openForm();
+                document.querySelector('input[name="tripname"]').value = cell1.innerText;
+                document.querySelector('input[name="startDate"]').value = cell2.innerText;
+                document.querySelector('input[name="endDate"]').value = cell3.innerText;                
+                document.querySelector('input[name="country"]').value = cell4.innerText;;
+
+                form.addEventListener('change', () =>{
+                    cell1.innerText = document.querySelector('input[name="tripname"]').value;
+                    cell2.innerText = document.querySelector('input[name="startDate"]').value;
+                    cell3.innerText = document.querySelector('input[name="endDate"]').value;
+                    cell4.innerText = document.querySelector('input[name="country"]').value;
+    
+                    trip.tripname = document.querySelector('input[name="tripname"]').value;
+                    trip.startDate = document.querySelector('input[name="startDate"]').value;
+                    trip.endDate = document.querySelector('input[name="endDate"]').value;                
+                    trip.country = document.querySelector('input[name="country"]').value;
+                })
             })
 
             delBtn.addEventListener('click', (event) => {
@@ -54,50 +70,51 @@ if(dataArray.length > 0){
             })
         }
     })
-
+    
 }
 
 if(window.location.pathname==="/reise_bearbeiten.html"){
 
-function openForm(){
-    document.querySelector(".form-popup").style.display ="block";
-    document.querySelector("body").style.background ="grey";
-    
-    for(var i = 0; i<buttonIds.length; i++){
-        document.getElementById("editBtn"+i).style.color ="grey";
-        document.getElementById("editBtn"+i).style.background="grey";
-        document.getElementById("editBtn"+i).style.border="white";
-        document.getElementById("delBtn"+i).style.color ="grey";
-        document.getElementById("delBtn"+i).style.background="grey";
-        document.getElementById("delBtn"+i).style.border="white";
-    }
-    
-}
+    function openForm(){
+        document.querySelector(".form-popup").style.display ="block";
+        document.querySelector("body").style.background ="grey";
 
-function closeForm(){
-    document.querySelector(".form-popup").style.display ="none";
-    document.querySelector("body").style.background = "white";
-
-    for(var i = 0; i<buttonIds.length; i++){
-        document.getElementById("editBtn"+i).removeAttribute('style');
-        document.getElementById("delBtn"+i).removeAttribute('style');
+        for(var i = 0; i<buttonIds.length; i++){
+            document.getElementById("editBtn"+i).style.color ="grey";
+            document.getElementById("editBtn"+i).style.background="grey";
+            document.getElementById("editBtn"+i).style.border="white";
+            document.getElementById("delBtn"+i).style.color ="grey";
+            document.getElementById("delBtn"+i).style.background="grey";
+            document.getElementById("delBtn"+i).style.border="white";
+            }
     }
-    document.querySelectorAll(".editBtn").forEach((item) =>{
-        item.removeAttribute('style');
+
+    function closeForm(){
+        document.querySelector(".form-popup").style.display ="none";
+        document.querySelector("body").style.background = "white";
+        for(var i = 0; i<buttonIds.length; i++){
+            document.getElementById("editBtn"+i).removeAttribute('style');
+            document.getElementById("delBtn"+i).removeAttribute('style');
+        }
+        document.querySelector('input[name="tripname"]').value = "";
+        document.querySelector('input[name="startDate"]').value = "";
+        document.querySelector('input[name="endDate"]').value = "";
+        document.querySelector('input[name="country"]').value = "";
+    }
+
+    saveEditBtn.addEventListener('click', (event) => {
+        event.preventDefault();
+        localStorage.setItem('trips', JSON.stringify(dataArray));
+        closeForm();
     })
-}
-
-saveEditBtn.addEventListener('click', (event) => {
-    event.preventDefault();
-    closeForm();
-})
-
-cancelEditBtn.addEventListener('click', (event) => {
-    event.preventDefault();
-    closeForm();
-})
+    cancelEditBtn.addEventListener('click', (event) => {
+        event.stopPropagation();
+        closeForm();
+    })
 
 }
+
+
 
 if(window.location.pathname==="/reise_hinzufugen.html"){
 addButton.addEventListener('click', function(){
@@ -119,7 +136,9 @@ addButton.addEventListener('click', function(){
     cell3.appendChild(document.createTextNode(endDate));
     cell4.appendChild(document.createTextNode(country));
     
-    var tableData = {'tripname': tripname, 'startDate': startDate, 'endDate': endDate, 'country': country};
+    var id = buttonIds.length;   //nächste freie ID
+    
+    var tableData = {'tripname': tripname, 'startDate': startDate, 'endDate': endDate, 'country': country, 'id': id};
     dataArray.push(tableData);
     
     localStorage.setItem('trips', JSON.stringify(dataArray));
