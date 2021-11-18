@@ -41,47 +41,61 @@ if(dataArray.length > 0){
 
 //Reise-Dummys hinzufügen falls noch keine Daten in dataArray
 if(dataArray.length===0){
-    var header = { 'trips': {'tripname': "Reisename", 'startDate': "Anfang", 'endDate': "Ende", 'country':"Reiseland"}};
-    var kubaTrip = { 'trips' : {'tripname': "Surfen & Entspannung", 'startDate': "07.09.2021", 'endDate': "14.09.2021", 'country': "Kuba"}};
-    var spainTrip = { 'trips' : {'tripname': "Spa-Woche", 'startDate': "02.10.2021", 'endDate': "08.10.2021", 'country': "Spanien"}};
-    var hungaryTrip = { 'trips' : {'tripname': "Erholung unter Palmen ", 'startDate': "05.01.2022", 'endDate': "12.01.2022", 'country': "Ungarn"}};
+    var header = { 'header': {'tripname': "Reisename", 'startDate': "Anfang", 'endDate': "Ende", 'country':"Reiseland"}};
+    var trips = [
+        {'tripname': "Surfen & Entspannung", 'startDate': "07.09.2021", 'endDate': "14.09.2021", 'country': "Kuba"},
+        {'tripname': "Spa-Woche", 'startDate': "02.10.2021", 'endDate': "08.10.2021", 'country': "Spanien"},
+        {'tripname': "Erholung unter Palmen ", 'startDate': "05.01.2022", 'endDate': "12.01.2022", 'country': "Ungarn"}
+    ]
     
     dataArray.push(header);
-    dataArray.push(kubaTrip);
-    dataArray.push(spainTrip);
-    dataArray.push(hungaryTrip);
-    
+    dataArray.push(trips);
+
     for(var i=0; i< 1;i++){          //header
-        var row = table.insertRow(0);  
+        var row = table.createTHead();
         var headerCell1 = row.appendChild(document.createElement("TH"));
         var headerCell2 = row.appendChild(document.createElement("TH"));
         var headerCell3 = row.appendChild(document.createElement("TH"));
         var headerCell4 = row.appendChild(document.createElement("TH"));
-        headerCell1.innerText = dataArray[0].trips.tripname;
-        headerCell2.innerText = dataArray[0].trips.startDate;
-        headerCell3.innerText = dataArray[0].trips.endDate;
-        headerCell4.innerText = dataArray[0].trips.country;
+        headerCell1.innerText = dataArray[0].header.tripname;
+        headerCell2.innerText = dataArray[0].header.startDate;
+        headerCell3.innerText = dataArray[0].header.endDate;
+        headerCell4.innerText = dataArray[0].header.country;
     }
 
-    for(let i=1;i<4;i++){       //table data
-        var row = table.insertRow(i);
-        var cell1 = row.appendChild(document.createElement("td"));
-        var cell2 = row.appendChild(document.createElement("td"));
-        var cell3 = row.appendChild(document.createElement("td"));
-        var cell4 = row.appendChild(document.createElement("td"));
-        cell1.innerText = dataArray[i].trips.tripname;
-        cell2.innerText = dataArray[i].trips.startDate;
-        cell3.innerText = dataArray[i].trips.endDate;
-        cell4.innerText = dataArray[i].trips.country;
-    }
+    trips.reverse().forEach(trip => {
+        var row = table.insertRow('${index}');
+        const cell1 = row.insertCell(0).appendChild(document.createElement('td'));
+        const cell2 = row.insertCell(1).appendChild(document.createElement('td'));
+        const cell3 = row.insertCell(2).appendChild(document.createElement('td'));
+        const cell4 = row.insertCell(3).appendChild(document.createElement('td'));
+        
+        cell1.innerText = trip.tripname;
+        cell2.innerText = trip.startDate;
+        cell3.innerText = trip.endDate;
+        cell4.innerText = trip.country;
+        
+        if(window.location.pathname==="/reise_bearbeiten.html"){
+            const editBtn = row.insertCell(4).appendChild(document.createElement('button'));
+            const delBtn = row.insertCell(5).appendChild(document.createElement('button'));
+            editBtn.innerText = 'Bearbeiten';
+            editBtn.value = trip.tripname;
+            delBtn.innerText = 'Löschen';
+            delBtn.value = trip.tripname;
+
+            editBtn.addEventListener('click', (event) => {
+                console.log('Edit', trip.tripname);
+            })
+
+            delBtn.addEventListener('click', (event) => {
+                console.log('Delete', trip.tripname);
+            })
+        }
+    })
+
 }
 
 if(window.location.pathname==="/reise_bearbeiten.html"){
-
-dataArray.forEach(trip =>{
-
-})
-
 
 function openForm(){
     document.querySelector(".form-popup").style.display ="block";
