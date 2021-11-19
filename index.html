@@ -7,16 +7,16 @@
     <link rel="shortcut icon" href="images/favicon.ico">
     <link rel="stylesheet" href="css/styles.css">
     <title>Deine Reisekarte ins Nirwana</title>
+    <script src="js/login.js"></script>
 </head>
 
 <body>
     <div class="container">
-        <header>
-            <div class="menu-container-index">
+        <header class="index-header">
+            <div class="header-container-index">
                 <img class="logo" src="images/globe.png">
-                <h1>Deine Reisekarte ins Nirwana</h1>
+                <h1 class="index-title">Deine Reisekarte ins Nirwana</h1>
             </div>
-           
         </header>
         <main>
             <h3>
@@ -26,25 +26,21 @@
                 über deine individuelle Reisekarte 
                 verwalten.
             </h3>
-            <table class="center">
-                <form action="map.html">
+            <table class="login">
                 <tr>
-                    <td>
-                        <label for="email">E-Mail</label>
-                    </td>
-                    <td>
-                        <input type="email" id="email" required/>
-                    </td>
+                    <td><label for="email">E-Mail</label></td>
+                    <td><input type="email" id="email" required/></td>
                 </tr>
                 <tr>
                     <td><label for="password">Passwort</label></td>
-                    <td><input type="password"/></td>
+                    <td><input type="password" id="pw"/></td>
                 </tr> 
-            </table><br>
-                <a href="map.html"><button type="button">Einloggen</button></a>
-                <!-- später mit backend nutzen
-                    <input type="submit" value="Jetzt einloggen"/>-->
-                </form>
+            <tr>
+                <td></td>
+                <td>
+                <input type="submit" id="submit" value="Jetzt einloggen" onClick="pwValidation()"/>
+            </td></tr>        
+                    </table>    
             </main>
         <footer>
             © 2021

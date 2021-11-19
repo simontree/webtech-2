@@ -24,31 +24,36 @@
 
 <body>
     <div class="container-after-login-map">
-        <header>
+        <header class="after-login">
         <div class="menu-container">
-            <img class="logo" src="images/globe.png">
+            <img class="logo" src="images/globe.png"/>
             <h2><a href="map.html">Deine Reisekarte ins Nirwana</a></h2>
             <nav class="menu">
                 <ul>
                     <li><a href="map.html">Karte</a></li>
                     <li><a href="reise_hinzufugen.html">Reise hinzufügen</a></li>
                     <li><a href="reise_bearbeiten.html">Reise bearbeiten</a></li>
+                    <li><a href="index.html" id="logoutBtn">Logout</a></li>
                 </ul>
             </nav>
         </div>
         </header>
 
+
         <sidebar>
             <ul class="journeylist" id="besuchte">
+
                <li><h2>Besuchte Länder</h2></li>
                 <li><a href="#">Cuba</a></li>
                 <li><a href="#">Spain</a></li>
                 <li><a href="#">Germany</a></li>
             </ul>
+
         </sidebar>
         <main>
         <div id='map'></div>
         </main>
+
         <footer>
             © 2021
         </footer>
