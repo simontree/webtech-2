@@ -9,11 +9,18 @@ const saveEditBtn = document.querySelector("#saveEdit");
 const cancelEditBtn = document.querySelector("#cancelEdit");
 var buttonIds = [];
 const form = document.querySelector(".form-popup");
-// var isEmpty = true;
 
-//Reise-Dummys hinzufügen falls noch keine Daten in dataArray
-if(dataArray.length===0 && isEmpty){
-    var isEmpty = false;
+if(dataArray.length===0){
+const loadDummysBtn = btnWrapper.appendChild(document.createElement('button'));
+loadDummysBtn.innerText = "Dummys erzeugen";
+
+loadDummysBtn.addEventListener('click', (event)=>{
+    createDummys();
+    location.reload();
+})
+}
+
+function createDummys(){
     var trips = [
         {tripname: "Surfen & Entspannung", startDate: "2021-09-07", endDate: "2021-09-14", country: "Cuba", id: 0},
         {tripname: "Spa-Woche", startDate: "2021-10-02", endDate: "2021-10-08", country: "Spain", id: 1},
@@ -21,8 +28,8 @@ if(dataArray.length===0 && isEmpty){
     ]
     dataArray.push(...trips);
     localStorage.setItem('trips', JSON.stringify(dataArray));
-    localStorage.setItem('isEmpty',isEmpty);
 }
+
 
 if(dataArray.length > 0){
     dataArray.forEach(trip => {
@@ -71,12 +78,11 @@ if(dataArray.length > 0){
 
             delBtn.addEventListener('click', (event) => {
                 if(dataArray.length === 1){
-                    dataArray.splice(trip.id,1);
-                    localStorage.setItem('trips', JSON.stringify(dataArray));
+                    localStorage.clear();
                     table.deleteRow(0);
                     dataArray = [];
-                    isEmpty = true;
                     console.log('Delete', trip.tripname);
+                    location.reload();
                 }
                 else if(dataArray.length > 1){
                 event.preventDefault();
@@ -84,7 +90,7 @@ if(dataArray.length > 0){
                 dataArray.splice(trip.id,1);
                 localStorage.setItem('trips', JSON.stringify(dataArray));
                 console.log('Delete', trip.tripname);
-                // location.reload();
+                
                 }
             })
         }
