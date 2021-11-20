@@ -13,11 +13,12 @@ const form = document.querySelector(".form-popup");
 //Reise-Dummys hinzufügen falls noch keine Daten in dataArray
 if(dataArray.length===0){
     var trips = [
-        {tripname: "Surfen & Entspannung", startDate: "2021-09-07", endDate: "2021-09-14", country: "Kuba", id: 0},
-        {tripname: "Spa-Woche", startDate: "2021-10-02", endDate: "2021-10-08", country: "Spanien", id: 1},
-        {tripname: "Erholung unter Palmen ", startDate: "2022-01-05", endDate: "2022-01-12", country: "Ungarn", id: 2}
+        {tripname: "Surfen & Entspannung", startDate: "2021-09-07", endDate: "2021-09-14", country: "Cuba", id: 0},
+        {tripname: "Spa-Woche", startDate: "2021-10-02", endDate: "2021-10-08", country: "Spain", id: 1},
+        {tripname: "Erholung unter Palmen ", startDate: "2022-01-05", endDate: "2022-01-12", country: "Hungary", id: 2}
     ]
     dataArray.push(...trips);
+    localStorage.setItem('trips', JSON.stringify(dataArray));
 }
 
 if(dataArray.length > 0){
