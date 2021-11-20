@@ -85,13 +85,16 @@ if(dataArray.length > 0){
                     location.reload();
                 }
                 else if(dataArray.length > 1){
+                console.log("trip.id deleted: "+trip.id);
                 event.preventDefault();
                 table.deleteRow('${index}');
                 dataArray.splice(trip.id,1);
+                console.log("trip.id deleted: "+trip.id);
                 localStorage.setItem('trips', JSON.stringify(dataArray));
+                location.reload();
                 console.log('Delete', trip.tripname);
-                
                 }
+                
             })
         }
     })
