@@ -1,10 +1,6 @@
 //Prüfen ob Array bereits mit Daten gefüllt
-
-//Made an extra js (trips) as a scapegoat to save the trips 
-//and import them among the htmls that need it
-import {trips as importedTrips} from './trips.js'
-let dataArray = importedTrips 
-? JSON.parse(importedTrips) 
+let dataArray = localStorage.getItem("trips") 
+? JSON.parse(localStorage.getItem("trips")) 
 : [];
 const addButton = document.querySelector(".addTrip");
 let table = document.querySelector(".triptable tbody");
@@ -22,6 +18,7 @@ if(dataArray.length===0){
         {tripname: "Erholung unter Palmen ", startDate: "2022-01-05", endDate: "2022-01-12", country: "Hungary", id: 2}
     ]
     dataArray.push(...trips);
+    localStorage.setItem('trips', JSON.stringify(dataArray));
 }
 
 if(dataArray.length > 0){
@@ -165,4 +162,3 @@ function clearForm(){
     document.querySelector("#country").value = '';
     }
 }
-

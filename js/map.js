@@ -6,13 +6,23 @@
 
 //Made an extra js (trips) as a scapegoat to save the trips 
 //and import them among the htmls that need it
-import { trips as importedTrips } from './trips.js';
+let importedTrips = localStorage.getItem("trips");
 var map = document.querySelector('#map');
 var mymap = L.map(map).setView([51.505, -0.09], 4);
 const tripsJSON = importedTrips ? JSON.parse(importedTrips) : [];
 let countryList = document.querySelector('#besuchte');
 //console.log(tripsJSON);
 //Generate Country names in html
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////Test Fill Local Storage ////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////Test End ////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+
 
 if(tripsJSON.length > 0){
     tripsJSON.forEach(trip => {
@@ -81,3 +91,6 @@ function mapToTextArray(liArray){
   }
   return countries;
 }
+
+
+

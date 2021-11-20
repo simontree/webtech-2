@@ -1,1 +1,0 @@
-export let trips = localStorage.getItem("trips");
