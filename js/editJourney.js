@@ -67,7 +67,8 @@ if(dataArray.length > 0){
                 console.log("trip.id deleted: "+trip.id);
                 event.preventDefault();
                 table.deleteRow('${index}');
-                dataArray.splice(trip.id,1);
+                var idToDelete = trip.id;
+                dataArray = dataArray.filter(trip => trip.id !== idToDelete);
                 console.log("trip.id deleted: "+trip.id);
                 localStorage.setItem('trips', JSON.stringify(dataArray));
                 location.reload();
