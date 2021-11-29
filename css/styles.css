@@ -1,5 +1,6 @@
 body{
     font-family: "Roboto", sans-serif;
+    
 }
 
 .container{
@@ -69,6 +70,7 @@ main {
     grid-area: main;
     line-height: 30px; 
     padding: 40px;
+    overflow-y: scroll;
 }
 
 aside{
@@ -221,6 +223,8 @@ a{
         grid-area: main;
         font-size: 11px;        
         justify-items: center;
+        overflow-y: auto;
+        height:400px;
     }
     aside{
         grid-area: aside;

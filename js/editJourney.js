@@ -4,32 +4,11 @@ let dataArray = localStorage.getItem("trips")
 : [];
 const addButton = document.querySelector(".addTrip");
 let table = document.querySelector(".triptable tbody");
-const btnWrapper = document.querySelector("#btnWrapper");
+
 const saveEditBtn = document.querySelector("#saveEdit");
 const cancelEditBtn = document.querySelector("#cancelEdit");
 var buttonIds = [];
 const form = document.querySelector(".form-popup");
-
-if(dataArray.length===0){
-const loadDummysBtn = btnWrapper.appendChild(document.createElement('button'));
-loadDummysBtn.innerText = "Dummys erzeugen";
-
-loadDummysBtn.addEventListener('click', (event)=>{
-    createDummys();
-    location.reload();
-})
-}
-
-function createDummys(){
-    var trips = [
-        {tripname: "Surfen & Entspannung", startDate: "2021-09-07", endDate: "2021-09-14", country: "Cuba", id: 0},
-        {tripname: "Spa-Woche", startDate: "2021-10-02", endDate: "2021-10-08", country: "Spain", id: 1},
-        {tripname: "Erholung unter Palmen ", startDate: "2022-01-05", endDate: "2022-01-12", country: "Hungary", id: 2}
-    ]
-    dataArray.push(...trips);
-    localStorage.setItem('trips', JSON.stringify(dataArray));
-}
-
 
 if(dataArray.length > 0){
     dataArray.forEach(trip => {
@@ -88,7 +67,8 @@ if(dataArray.length > 0){
                 console.log("trip.id deleted: "+trip.id);
                 event.preventDefault();
                 table.deleteRow('${index}');
-                dataArray.splice(trip.id,1);
+                var idToDelete = trip.id;
+                dataArray = dataArray.filter(trip => trip.id !== idToDelete);
                 console.log("trip.id deleted: "+trip.id);
                 localStorage.setItem('trips', JSON.stringify(dataArray));
                 location.reload();
@@ -102,6 +82,27 @@ if(dataArray.length > 0){
 }
 
 if(window.location.pathname==="/reise_bearbeiten.html"){
+
+    if(dataArray.length===0){
+        const btnWrapper = document.querySelector("#btnWrapper");
+        const loadDummysBtn = btnWrapper.appendChild(document.createElement('button'));
+        loadDummysBtn.innerText = "Dummys erzeugen";
+        
+        loadDummysBtn.addEventListener('click', (event)=>{
+            createDummys();
+            location.reload();
+        })
+        }
+        
+        function createDummys(){
+            var trips = [
+                {tripname: "Surfen & Entspannung", startDate: "2021-09-07", endDate: "2021-09-14", country: "Cuba", id: 0},
+                {tripname: "Spa-Woche", startDate: "2021-10-02", endDate: "2021-10-08", country: "Spain", id: 1},
+                {tripname: "Erholung unter Palmen ", startDate: "2022-01-05", endDate: "2022-01-12", country: "Hungary", id: 2}
+            ]
+            dataArray.push(...trips);
+            localStorage.setItem('trips', JSON.stringify(dataArray));
+        }
 
     function openForm(){
         document.querySelector(".form-popup").style.display ="block";
@@ -145,7 +146,11 @@ if(window.location.pathname==="/reise_bearbeiten.html"){
 if(window.location.pathname==="/reise_hinzufugen.html"){
 addButton.addEventListener('click', function(){
     
+if(dataArray === 0){
+    var row = table.insertRow(0);
+}else{
     var row = table.insertRow(dataArray.length);
+}
     
     let tripname = document.querySelector("#tripname").value;
     let startDate = document.querySelector("#startDate").value; // Date Formatierung fehlt noch
