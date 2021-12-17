@@ -13,24 +13,21 @@ const form = document.querySelector(".form-popup");
 //connect Frontend to Backend
 const BASE_URL = "http://localhost:5000";
 
-async function fetchTrips() {
-  //   let tripArray = await fetch(`${BASE_URL}/trips`)
-  //     .then((response) => response.json())
-  //     .then((trip) => {
-  //       trip;
-  //     });
-  //   return tripArray;
-  const response = await fetch(`${BASE_URL}/trips`);
-  const json = await response.json();
-  return json;
-}
+let dataArray = [];
 
-async function getTrips() {
-  let tripArray = await fetchTrips();
-  return tripArray;
-}
+const getTrips = async () => {
+  fetch(`${BASE_URL}/trips`)
+    .then((response) => response.json())
+    .then((trip) => {
+      let array = trip;
+      //   console.log(trip);
+      dataArray.push(array);
+    });
+};
 
-const dataArray = getTrips() ? getTrips() : [];
+getTrips();
+
+// const dataArray = getTrips() ? getTrips() : [];
 
 if (dataArray.length > 0) {
   dataArray.forEach((trip) => {
