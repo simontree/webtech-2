@@ -3,7 +3,7 @@
 //   ? JSON.parse(localStorage.getItem("trips"))
 //   : [];
 
-//var CryptoJS = require("crypto-js");
+//var moment = require("moment"); -> Date formatting library
 
 const addButton = document.querySelector(".addTrip");
 let table = document.querySelector(".triptable tbody");
@@ -96,13 +96,13 @@ fetch(`${BASE_URL}/trips`)
           });
 
           delBtn.addEventListener("click", (event) => {
-            if (dataArray.length === 1) {
-              localStorage.clear();
+            if (dataArray[0].length === 1) {
+              // localStorage.clear();
               table.deleteRow(0);
               dataArray = [];
               console.log("Delete", trip.name);
               location.reload();
-            } else if (dataArray.length > 1) {
+            } else if (dataArray[0].length > 1) {
               console.log("trip.trip_id deleted: " + trip.trip_id);
               event.preventDefault();
               table.deleteRow("${index}");
@@ -111,8 +111,17 @@ fetch(`${BASE_URL}/trips`)
                 (trip) => trip.trip_id !== idToDelete
               );
               console.log("trip.trip_id deleted: " + trip.trip_id);
-              localStorage.setItem("trips", JSON.stringify(dataArray));
-              location.reload();
+
+              fetch(`${BASE_URL}/trips/` + trip.trip_id, {
+                method: "DELETE",
+                mode: "cors",
+                headers: {
+                  "Content-type": "application/json; charset=UTF-8", // Indicates the content
+                },
+              });
+
+              // localStorage.setItem("trips", JSON.stringify(dataArray));
+              // location.reload();
               console.log("Delete", trip.name);
             }
           });
@@ -202,10 +211,10 @@ fetch(`${BASE_URL}/trips`)
 
     if (window.location.pathname === "/reise_hinzufugen.html") {
       addButton.addEventListener("click", function () {
-        if (dataArray === 0) {
+        if (dataArray[0].lenght === 0) {
           var row = table.insertRow(0);
         } else {
-          var row = table.insertRow(dataArray.length);
+          var row = table.insertRow(dataArray[0].length);
         }
 
         let name = document.querySelector("#name").value;
@@ -247,7 +256,7 @@ fetch(`${BASE_URL}/trips`)
         };
         addTripToDb(tableData);
 
-        localStorage.setItem("trips", JSON.stringify(dataArray));
+        // localStorage.setItem("trips", JSON.stringify(dataArray));
 
         clearForm();
       });
