@@ -11,6 +11,7 @@ let table = document.querySelector(".triptable tbody");
 const saveEditBtn = document.querySelector("#saveEdit");
 const cancelEditBtn = document.querySelector("#cancelEdit");
 var buttonIds = [];
+var buttonID = 0;
 const form = document.querySelector(".form-popup");
 
 //connect Frontend to Backend
@@ -47,7 +48,8 @@ fetch(`${BASE_URL}/trips`)
         cell2.innerText = trip.start;
         cell3.innerText = trip.end;
         cell4.innerText = trip.country;
-        buttonIds.push(trip.trip_id);
+        trip.id = buttonID++;
+        buttonIds.push(trip.id);
 
         if (window.location.pathname === "/reise_bearbeiten.html") {
           const editBtn = row
@@ -57,9 +59,9 @@ fetch(`${BASE_URL}/trips`)
             .insertCell(5)
             .appendChild(document.createElement("button"));
           editBtn.innerText = "Bearbeiten";
-          editBtn.id = "editBtn" + trip.trip_id;
+          editBtn.id = "editBtn" + trip.id;
           delBtn.innerText = "Löschen";
-          delBtn.id = "delBtn" + trip.trip_id;
+          delBtn.id = "delBtn" + trip.id;
           //zum Iterieren für Style s.u.
 
           editBtn.addEventListener("click", (event) => {
@@ -97,7 +99,6 @@ fetch(`${BASE_URL}/trips`)
 
           delBtn.addEventListener("click", (event) => {
             if (dataArray[0].length === 1) {
-              // localStorage.clear();
               table.deleteRow(0);
               dataArray = [];
               console.log("Delete", trip.name);
@@ -119,9 +120,6 @@ fetch(`${BASE_URL}/trips`)
                   "Content-type": "application/json; charset=UTF-8", // Indicates the content
                 },
               });
-
-              // localStorage.setItem("trips", JSON.stringify(dataArray));
-              // location.reload();
               console.log("Delete", trip.name);
             }
           });
@@ -130,46 +128,47 @@ fetch(`${BASE_URL}/trips`)
     }
 
     if (window.location.pathname === "/reise_bearbeiten.html") {
-      if (dataArray.length === 0) {
-        const btnWrapper = document.querySelector("#btnWrapper");
-        const loadDummysBtn = btnWrapper.appendChild(
-          document.createElement("button")
-        );
-        loadDummysBtn.innerText = "Dummys erzeugen";
+      //deprecated with database integration
+      // if (dataArray.length === 0) {
+      //   const btnWrapper = document.querySelector("#btnWrapper");
+      //   const loadDummysBtn = btnWrapper.appendChild(
+      //     document.createElement("button")
+      //   );
+      //   loadDummysBtn.innerText = "Dummys erzeugen";
 
-        loadDummysBtn.addEventListener("click", () => {
-          createDummys();
-          location.reload();
-        });
-      }
+      //   loadDummysBtn.addEventListener("click", () => {
+      //     createDummys();
+      //     location.reload();
+      //   });
+      // }
 
-      function createDummys() {
-        var trips = [
-          {
-            name: "Surfen & Entspannung",
-            start: "2021-09-07",
-            end: "2021-09-14",
-            country: "Cuba",
-            trip_id: 0,
-          },
-          {
-            name: "Spa-Woche",
-            start: "2021-10-02",
-            end: "2021-10-08",
-            country: "Spain",
-            trip_id: 1,
-          },
-          {
-            name: "Erholung unter Palmen ",
-            start: "2022-01-05",
-            end: "2022-01-12",
-            country: "Hungary",
-            trip_id: 2,
-          },
-        ];
-        dataArray.push(...trips);
-        localStorage.setItem("trips", JSON.stringify(dataArray));
-      }
+      // function createDummys() {
+      //   var trips = [
+      //     {
+      //       name: "Surfen & Entspannung",
+      //       start: "2021-09-07",
+      //       end: "2021-09-14",
+      //       country: "Cuba",
+      //       trip_id: 0,
+      //     },
+      //     {
+      //       name: "Spa-Woche",
+      //       start: "2021-10-02",
+      //       end: "2021-10-08",
+      //       country: "Spain",
+      //       trip_id: 1,
+      //     },
+      //     {
+      //       name: "Erholung unter Palmen ",
+      //       start: "2022-01-05",
+      //       end: "2022-01-12",
+      //       country: "Hungary",
+      //       trip_id: 2,
+      //     },
+      //   ];
+      //   dataArray.push(...trips);
+      //   localStorage.setItem("trips", JSON.stringify(dataArray));
+      // }
 
       function openForm() {
         document.querySelector(".form-popup").style.display = "block";
@@ -246,7 +245,6 @@ fetch(`${BASE_URL}/trips`)
           const response = fetch(`${BASE_URL}/trips`, {
             method: "POST",
             mode: "cors",
-            // credentials: "include",  //not allowed with 'Access-Control-Allow-Origin' = *
             headers: {
               "Content-Type": "application/json",
             },
