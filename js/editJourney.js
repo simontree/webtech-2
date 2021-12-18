@@ -199,7 +199,33 @@ fetch(`${BASE_URL}/trips`)
 
       saveEditBtn.addEventListener("click", (event) => {
         event.preventDefault();
-        localStorage.setItem("trips", JSON.stringify(dataArray));
+
+        var postData = {
+          name: (trip.name =
+            document.querySelector('input[name="name"]').value),
+          start: (trip.start = document.querySelector(
+            'input[name="start"]'
+          ).value),
+          end: (trip.end = document.querySelector('input[name="end"]').value),
+          country: (trip.country = document.querySelector(
+            'input[name="country"]'
+          ).value),
+        };
+
+        const updateTripOnDb = async () => {
+          const response = fetch(`${BASE_URL}/trips/` + trip.trip_id, {
+            method: "PUT",
+            mode: "cors",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(postData),
+          });
+          return response.status === 200;
+        };
+        updateTripOnDb();
+
+        // localStorage.setItem("trips", JSON.stringify(dataArray));
         closeForm();
       });
       cancelEditBtn.addEventListener("click", (event) => {
@@ -217,8 +243,8 @@ fetch(`${BASE_URL}/trips`)
         }
 
         let name = document.querySelector("#name").value;
-        let start = document.querySelector("#start").value; // Date Formatierung fehlt noch
-        let end = document.querySelector("#end").value; //
+        let start = document.querySelector("#start").value;
+        let end = document.querySelector("#end").value;
         let country = document.querySelector("#country").value;
 
         let cell1 = row.insertCell(0);
