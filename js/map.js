@@ -1,3 +1,4 @@
+
 /**
  * Code to generate map in map.html
  * Should take the list of travels, from the list in reise_hinzufügen
@@ -35,15 +36,14 @@ if(tripsJSON.length > 0){
 }
 
 
-//Map Tiles
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png	', {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(mymap);
 
+
 const visitedCountries = mapToTextArray(Array.from(document.querySelector('#besuchte').getElementsByTagName('li')));
 //console.log(mapToTextArray(visitedCountries));
 
-//Get GeoJSON with polygons
 const loadData = async () => {
   const data = await fetch('https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_50m_admin_0_countries.geojson');
   return data.json();
@@ -57,6 +57,7 @@ const displayData = async () => {
     features: geoJson.features.filter(feature => 
                                   !visitedCountries.includes(feature.properties.name))
   };
+
   const filteredVisited = {
 ...geoJson,
     features: geoJson.features.filter(feature => 
@@ -75,22 +76,30 @@ const displayData = async () => {
     }
   })//Add to the map
   .addTo(mymap);
+
+  //L.geoJSON(filteredData).addTo(mymap);
+
   
 }
 
 displayData();
 
 //Take elements from the list on html, and create list of visited countries
-function mapToTextArray(liArray){
-  let countries = [];
-  const length = liArray.length;
-  let x = "";
+// old stuff from master-branch below
+//function mapToTextArray(liArray){
+//  let countries = [];
+//  const length = liArray.length;
+//  let x = "";
+
   for(let i=1; i<length; i++){
+
+  for(i=1; i<length; i++){
     x = liArray[i].innerText
     countries.push(x);
   }
   return countries;
 }
+
 
 
 
