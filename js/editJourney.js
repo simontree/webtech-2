@@ -33,7 +33,7 @@ const form = document.querySelector(".form-popup");
 
 // const dataArray = getTrips() ? getTrips() : [];
 
-if (arrayLength > 0) {
+if (dataArray.length > 0) {
   dataArray.forEach((trip) => {
     var row = table.insertRow("${index}");
     const cell1 = row.insertCell(0).appendChild(document.createElement("td"));
