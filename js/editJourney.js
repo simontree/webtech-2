@@ -3,6 +3,8 @@
 //   ? JSON.parse(localStorage.getItem("trips"))
 //   : [];
 
+//var CryptoJS = require("crypto-js");
+
 const addButton = document.querySelector(".addTrip");
 let table = document.querySelector(".triptable tbody");
 
@@ -228,9 +230,22 @@ fetch(`${BASE_URL}/trips`)
           start: start,
           end: end,
           country: country,
-          trip_id: id,
         };
         dataArray.push(tableData);
+
+        const addTripToDb = async () => {
+          const response = fetch(`${BASE_URL}/trips`, {
+            method: "POST",
+            mode: "cors",
+            // credentials: "include",  //not allowed with 'Access-Control-Allow-Origin' = *
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(tableData),
+          });
+          return response.status === 200;
+        };
+        addTripToDb(tableData);
 
         localStorage.setItem("trips", JSON.stringify(dataArray));
 
