@@ -2,7 +2,6 @@
 let dataArray = localStorage.getItem("trips")
   ? JSON.parse(localStorage.getItem("trips"))
   : [];
-
 const addButton = document.querySelector(".addTrip");
 let table = document.querySelector(".triptable tbody");
 
@@ -17,7 +16,7 @@ const form = document.querySelector(".form-popup");
 // let dataArray = [];
 // var arrayLength = 0;
 
-// //get existing trips from database
+//get existing trips from database
 // const getTrips = async () => {
 //   fetch(`${BASE_URL}/trips`)
 //     .then((response) => response.json())
@@ -34,77 +33,85 @@ const form = document.querySelector(".form-popup");
 // const dataArray = getTrips() ? getTrips() : [];
 
 if (arrayLength > 0) {
-  dataArray.forEach((trip) => {
-    var row = table.insertRow("${index}");
-    const cell1 = row.insertCell(0).appendChild(document.createElement("td"));
-    const cell2 = row.insertCell(1).appendChild(document.createElement("td"));
-    const cell3 = row.insertCell(2).appendChild(document.createElement("td"));
-    const cell4 = row.insertCell(3).appendChild(document.createElement("td"));
+  async function asyncForEach(dataArray, callback) {
+    for (let i = 0; i < arrayLength; i++) {
+      var row = table.insertRow("${index}");
+      const cell1 = row.insertCell(0).appendChild(document.createElement("td"));
+      const cell2 = row.insertCell(1).appendChild(document.createElement("td"));
+      const cell3 = row.insertCell(2).appendChild(document.createElement("td"));
+      const cell4 = row.insertCell(3).appendChild(document.createElement("td"));
 
-    cell1.innerText = trip.name;
-    cell2.innerText = trip.start;
-    cell3.innerText = trip.end;
-    cell4.innerText = trip.country;
-    buttonIds.push(trip.trip_id);
+      cell1.innerText = await trip.name;
+      cell2.innerText = await trip.start;
+      cell3.innerText = await trip.end;
+      cell4.innerText = await trip.country;
+      await buttonIds.push(trip.trip_id);
 
-    if (window.location.pathname === "/reise_bearbeiten.html") {
-      const editBtn = row
-        .insertCell(4)
-        .appendChild(document.createElement("button"));
-      const delBtn = row
-        .insertCell(5)
-        .appendChild(document.createElement("button"));
-      editBtn.innerText = "Bearbeiten";
-      editBtn.id = "editBtn" + trip.trip_id;
-      delBtn.innerText = "Löschen";
-      delBtn.id = "delBtn" + trip.trip_id;
-      //zum Iterieren für Style s.u.
+      if (window.location.pathname === "/reise_bearbeiten.html") {
+        const editBtn = row
+          .insertCell(4)
+          .appendChild(document.createElement("button"));
+        const delBtn = row
+          .insertCell(5)
+          .appendChild(document.createElement("button"));
+        editBtn.innerText = "Bearbeiten";
+        editBtn.id = "editBtn" + (await trip.trip_id);
+        delBtn.innerText = "Löschen";
+        delBtn.id = "delBtn" + (await trip.trip_id);
+        //zum Iterieren für Style s.u.
 
-      editBtn.addEventListener("click", (event) => {
-        event.preventDefault();
-        openForm();
-        document.querySelector('input[name="name"]').value = cell1.innerText;
-        document.querySelector('input[name="start"]').value = cell2.innerText;
-        document.querySelector('input[name="end"]').value = cell3.innerText;
-        document.querySelector('input[name="country"]').value = cell4.innerText;
-
-        form.addEventListener("change", (event) => {
-          cell1.innerText = document.querySelector('input[name="name"]').value;
-          cell2.innerText = document.querySelector('input[name="start"]').value;
-          cell3.innerText = document.querySelector('input[name="end"]').value;
-          cell4.innerText = document.querySelector(
-            'input[name="country"]'
-          ).value;
-
-          trip.name = document.querySelector('input[name="name"]').value;
-          trip.start = document.querySelector('input[name="start"]').value;
-          trip.end = document.querySelector('input[name="end"]').value;
-          trip.country = document.querySelector('input[name="country"]').value;
-        });
-        console.log("Edit", trip.name);
-      });
-
-      delBtn.addEventListener("click", (event) => {
-        if (dataArray.length === 1) {
-          localStorage.clear();
-          table.deleteRow(0);
-          dataArray = [];
-          console.log("Delete", trip.name);
-          location.reload();
-        } else if (dataArray.length > 1) {
-          console.log("trip.trip_id deleted: " + trip.trip_id);
+        editBtn.addEventListener("click", (event) => {
           event.preventDefault();
-          table.deleteRow("${index}");
-          var idToDelete = trip.trip_id;
-          dataArray = dataArray.filter((trip) => trip.trip_id !== idToDelete);
-          console.log("trip.trip_id deleted: " + trip.trip_id);
-          localStorage.setItem("trips", JSON.stringify(dataArray));
-          location.reload();
-          console.log("Delete", trip.name);
-        }
-      });
+          openForm();
+          document.querySelector('input[name="name"]').value = cell1.innerText;
+          document.querySelector('input[name="start"]').value = cell2.innerText;
+          document.querySelector('input[name="end"]').value = cell3.innerText;
+          document.querySelector('input[name="country"]').value =
+            cell4.innerText;
+
+          form.addEventListener("change", (event) => {
+            cell1.innerText =
+              document.querySelector('input[name="name"]').value;
+            cell2.innerText = document.querySelector(
+              'input[name="start"]'
+            ).value;
+            cell3.innerText = document.querySelector('input[name="end"]').value;
+            cell4.innerText = document.querySelector(
+              'input[name="country"]'
+            ).value;
+
+            trip.name = document.querySelector('input[name="name"]').value;
+            trip.start = document.querySelector('input[name="start"]').value;
+            trip.end = document.querySelector('input[name="end"]').value;
+            trip.country = document.querySelector(
+              'input[name="country"]'
+            ).value;
+          });
+          console.log("Edit", trip.name);
+        });
+
+        delBtn.addEventListener("click", (event) => {
+          if (dataArray.length === 1) {
+            localStorage.clear();
+            table.deleteRow(0);
+            dataArray = [];
+            console.log("Delete", trip.name);
+            location.reload();
+          } else if (dataArray.length > 1) {
+            console.log("trip.trip_id deleted: " + trip.trip_id);
+            event.preventDefault();
+            table.deleteRow("${index}");
+            var idToDelete = trip.trip_id;
+            dataArray = dataArray.filter((trip) => trip.trip_id !== idToDelete);
+            console.log("trip.trip_id deleted: " + trip.trip_id);
+            localStorage.setItem("trips", JSON.stringify(dataArray));
+            location.reload();
+            console.log("Delete", trip.name);
+          }
+        });
+      }
     }
-  });
+  }
 }
 
 if (window.location.pathname === "/reise_bearbeiten.html") {
