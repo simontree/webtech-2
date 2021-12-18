@@ -37,9 +37,9 @@ if (dataArray.length > 0) {
     const cell3 = row.insertCell(2).appendChild(document.createElement("td"));
     const cell4 = row.insertCell(3).appendChild(document.createElement("td"));
 
-    cell1.innerText = trip.tripname;
-    cell2.innerText = trip.startDate;
-    cell3.innerText = trip.endDate;
+    cell1.innerText = trip.name;
+    cell2.innerText = trip.start;
+    cell3.innerText = trip.end;
     cell4.innerText = trip.country;
     buttonIds.push(trip.id);
 
@@ -59,37 +59,25 @@ if (dataArray.length > 0) {
       editBtn.addEventListener("click", (event) => {
         event.preventDefault();
         openForm();
-        document.querySelector('input[name="tripname"]').value =
-          cell1.innerText;
-        document.querySelector('input[name="startDate"]').value =
-          cell2.innerText;
-        document.querySelector('input[name="endDate"]').value = cell3.innerText;
+        document.querySelector('input[name="name"]').value = cell1.innerText;
+        document.querySelector('input[name="start"]').value = cell2.innerText;
+        document.querySelector('input[name="end"]').value = cell3.innerText;
         document.querySelector('input[name="country"]').value = cell4.innerText;
 
         form.addEventListener("change", (event) => {
-          cell1.innerText = document.querySelector(
-            'input[name="tripname"]'
-          ).value;
-          cell2.innerText = document.querySelector(
-            'input[name="startDate"]'
-          ).value;
-          cell3.innerText = document.querySelector(
-            'input[name="endDate"]'
-          ).value;
+          cell1.innerText = document.querySelector('input[name="name"]').value;
+          cell2.innerText = document.querySelector('input[name="start"]').value;
+          cell3.innerText = document.querySelector('input[name="end"]').value;
           cell4.innerText = document.querySelector(
             'input[name="country"]'
           ).value;
 
-          trip.tripname = document.querySelector(
-            'input[name="tripname"]'
-          ).value;
-          trip.startDate = document.querySelector(
-            'input[name="startDate"]'
-          ).value;
-          trip.endDate = document.querySelector('input[name="endDate"]').value;
+          trip.name = document.querySelector('input[name="name"]').value;
+          trip.start = document.querySelector('input[name="start"]').value;
+          trip.end = document.querySelector('input[name="end"]').value;
           trip.country = document.querySelector('input[name="country"]').value;
         });
-        console.log("Edit", trip.tripname);
+        console.log("Edit", trip.name);
       });
 
       delBtn.addEventListener("click", (event) => {
@@ -97,7 +85,7 @@ if (dataArray.length > 0) {
           localStorage.clear();
           table.deleteRow(0);
           dataArray = [];
-          console.log("Delete", trip.tripname);
+          console.log("Delete", trip.name);
           location.reload();
         } else if (dataArray.length > 1) {
           console.log("trip.id deleted: " + trip.id);
@@ -108,7 +96,7 @@ if (dataArray.length > 0) {
           console.log("trip.id deleted: " + trip.id);
           localStorage.setItem("trips", JSON.stringify(dataArray));
           location.reload();
-          console.log("Delete", trip.tripname);
+          console.log("Delete", trip.name);
         }
       });
     }
@@ -132,23 +120,23 @@ if (window.location.pathname === "/reise_bearbeiten.html") {
   function createDummys() {
     var trips = [
       {
-        tripname: "Surfen & Entspannung",
-        startDate: "2021-09-07",
-        endDate: "2021-09-14",
+        name: "Surfen & Entspannung",
+        start: "2021-09-07",
+        end: "2021-09-14",
         country: "Cuba",
         id: 0,
       },
       {
-        tripname: "Spa-Woche",
-        startDate: "2021-10-02",
-        endDate: "2021-10-08",
+        name: "Spa-Woche",
+        start: "2021-10-02",
+        end: "2021-10-08",
         country: "Spain",
         id: 1,
       },
       {
-        tripname: "Erholung unter Palmen ",
-        startDate: "2022-01-05",
-        endDate: "2022-01-12",
+        name: "Erholung unter Palmen ",
+        start: "2022-01-05",
+        end: "2022-01-12",
         country: "Hungary",
         id: 2,
       },
@@ -178,9 +166,9 @@ if (window.location.pathname === "/reise_bearbeiten.html") {
       document.getElementById("editBtn" + i).removeAttribute("style");
       document.getElementById("delBtn" + i).removeAttribute("style");
     }
-    document.querySelector('input[name="tripname"]').value = "";
-    document.querySelector('input[name="startDate"]').value = "";
-    document.querySelector('input[name="endDate"]').value = "";
+    document.querySelector('input[name="name"]').value = "";
+    document.querySelector('input[name="start"]').value = "";
+    document.querySelector('input[name="end"]').value = "";
     document.querySelector('input[name="country"]').value = "";
   }
 
@@ -203,9 +191,9 @@ if (window.location.pathname === "/reise_hinzufugen.html") {
       var row = table.insertRow(dataArray.length);
     }
 
-    let tripname = document.querySelector("#tripname").value;
-    let startDate = document.querySelector("#startDate").value; // Date Formatierung fehlt noch
-    let endDate = document.querySelector("#endDate").value; //
+    let name = document.querySelector("#name").value;
+    let start = document.querySelector("#start").value; // Date Formatierung fehlt noch
+    let end = document.querySelector("#end").value; //
     let country = document.querySelector("#country").value;
 
     let cell1 = row.insertCell(0);
@@ -213,17 +201,17 @@ if (window.location.pathname === "/reise_hinzufugen.html") {
     let cell3 = row.insertCell(2);
     let cell4 = row.insertCell(3);
 
-    cell1.appendChild(document.createTextNode(tripname));
-    cell2.appendChild(document.createTextNode(startDate));
-    cell3.appendChild(document.createTextNode(endDate));
+    cell1.appendChild(document.createTextNode(name));
+    cell2.appendChild(document.createTextNode(start));
+    cell3.appendChild(document.createTextNode(end));
     cell4.appendChild(document.createTextNode(country));
 
     var id = buttonIds.length; //nächste freie ID
 
     var tableData = {
-      tripname: tripname,
-      startDate: startDate,
-      endDate: endDate,
+      name: name,
+      start: start,
+      end: end,
       country: country,
       id: id,
     };
@@ -235,9 +223,9 @@ if (window.location.pathname === "/reise_hinzufugen.html") {
   });
 
   function clearForm() {
-    document.querySelector("#tripname").value = "";
-    document.querySelector("#startDate").value = "";
-    document.querySelector("#endDate").value = "";
+    document.querySelector("#name").value = "";
+    document.querySelector("#start").value = "";
+    document.querySelector("#end").value = "";
     document.querySelector("#country").value = "";
   }
 }
