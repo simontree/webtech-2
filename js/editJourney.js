@@ -232,4 +232,32 @@ if (window.location.pathname === "/reise_hinzufugen.html") {
     document.querySelector("#end").value = "";
     document.querySelector("#country").value = "";
   }
+
+
+
+//Reise Dropdown Menu ausfüllen.
+//Geojson sind die Polygone (Schatten auf den Map)
+const loadData = async () => {
+  const data = await fetch(
+    "https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_50m_admin_0_countries.geojson"
+  );
+  return data.json();
+};
+
+const getNames = async () =>{
+  const geoJson = await loadData();
+  geoJson.features.forEach(loadNames)
 }
+function loadNames(item){
+  //console.log(item.properties.name);
+  let dropDownMenu = document.querySelector("#country");
+  let option = document.createElement("option");
+  option.appendChild(document.createTextNode(item.properties.name))
+  dropDownMenu.append(option);
+
+}
+getNames();
+
+}
+
+
