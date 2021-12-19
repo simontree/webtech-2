@@ -92,30 +92,30 @@ fetch(`${BASE_URL}/trips`)
           });
 
           delBtn.addEventListener("click", (event) => {
+            event.preventDefault();
             if (dataArray[0].length === 1) {
               table.deleteRow(0);
               dataArray = [];
               console.log("Delete", trip.name);
-              location.reload();
             } else if (dataArray[0].length > 1) {
               console.log("trip.trip_id deleted: " + trip.trip_id);
-              event.preventDefault();
+
               table.deleteRow("${index}");
               var idToDelete = trip.trip_id;
               dataArray = dataArray.filter(
                 (trip) => trip.trip_id !== idToDelete
               );
               console.log("trip.trip_id deleted: " + trip.trip_id);
-
-              fetch(`${BASE_URL}/trips/` + trip.trip_id, {
-                method: "DELETE",
-                mode: "cors",
-                headers: {
-                  "Content-type": "application/json; charset=UTF-8",
-                },
-              });
-              console.log("Delete", trip.name);
             }
+            fetch(`${BASE_URL}/trips/` + trip.trip_id, {
+              method: "DELETE",
+              mode: "cors",
+              headers: {
+                "Content-type": "application/json; charset=UTF-8",
+              },
+            });
+            console.log("Delete", trip.name);
+            // location.reload();
           });
         }
 
