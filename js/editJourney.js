@@ -1,10 +1,3 @@
-//Prüfen ob Array bereits mit Daten gefüllt
-// let dataArray = localStorage.getItem("trips")
-//   ? JSON.parse(localStorage.getItem("trips"))
-//   : [];
-
-//var moment = require("moment"); -> Date formatting library
-
 const addButton = document.querySelector(".addTrip");
 let table = document.querySelector(".triptable tbody");
 
@@ -86,7 +79,6 @@ fetch(`${BASE_URL}/trips`)
               cell4.innerText = document.querySelector(
                 'input[name="country"]'
               ).value;
-
               trip.name = document.querySelector('input[name="name"]').value;
               trip.start = document.querySelector('input[name="start"]').value;
               trip.end = document.querySelector('input[name="end"]').value;
@@ -95,6 +87,8 @@ fetch(`${BASE_URL}/trips`)
               ).value;
             });
             console.log("Edit", trip.name);
+            console.log("tripID after editBtnclick: " + trip.trip_id);
+            console.log("tripname : " + trip.name);
           });
 
           delBtn.addEventListener("click", (event) => {
@@ -117,203 +111,149 @@ fetch(`${BASE_URL}/trips`)
                 method: "DELETE",
                 mode: "cors",
                 headers: {
-                  "Content-type": "application/json; charset=UTF-8", // Indicates the content
+                  "Content-type": "application/json; charset=UTF-8",
                 },
               });
               console.log("Delete", trip.name);
             }
           });
         }
-      });
-    }
 
-    if (window.location.pathname === "/reise_bearbeiten.html") {
-      //deprecated with database integration
-      // if (dataArray.length === 0) {
-      //   const btnWrapper = document.querySelector("#btnWrapper");
-      //   const loadDummysBtn = btnWrapper.appendChild(
-      //     document.createElement("button")
-      //   );
-      //   loadDummysBtn.innerText = "Dummys erzeugen";
+        if (window.location.pathname === "/reise_bearbeiten.html") {
+          function openForm() {
+            document.querySelector(".form-popup").style.display = "block";
+            document.querySelector("body").style.background = "grey";
 
-      //   loadDummysBtn.addEventListener("click", () => {
-      //     createDummys();
-      //     location.reload();
-      //   });
-      // }
+            for (var i = 0; i < buttonIds.length; i++) {
+              document.getElementById("editBtn" + i).style.color = "grey";
+              document.getElementById("editBtn" + i).style.background = "grey";
+              document.getElementById("editBtn" + i).style.border = "white";
+              document.getElementById("delBtn" + i).style.color = "grey";
+              document.getElementById("delBtn" + i).style.background = "grey";
+              document.getElementById("delBtn" + i).style.border = "white";
+            }
+          }
 
-      // function createDummys() {
-      //   var trips = [
-      //     {
-      //       name: "Surfen & Entspannung",
-      //       start: "2021-09-07",
-      //       end: "2021-09-14",
-      //       country: "Cuba",
-      //       trip_id: 0,
-      //     },
-      //     {
-      //       name: "Spa-Woche",
-      //       start: "2021-10-02",
-      //       end: "2021-10-08",
-      //       country: "Spain",
-      //       trip_id: 1,
-      //     },
-      //     {
-      //       name: "Erholung unter Palmen ",
-      //       start: "2022-01-05",
-      //       end: "2022-01-12",
-      //       country: "Hungary",
-      //       trip_id: 2,
-      //     },
-      //   ];
-      //   dataArray.push(...trips);
-      //   localStorage.setItem("trips", JSON.stringify(dataArray));
-      // }
+          function closeForm() {
+            document.querySelector(".form-popup").style.display = "none";
+            document.querySelector("body").style.background = "white";
+            for (var i = 0; i < buttonIds.length; i++) {
+              document.getElementById("editBtn" + i).removeAttribute("style");
+              document.getElementById("delBtn" + i).removeAttribute("style");
+            }
+            document.querySelector('input[name="name"]').value = "";
+            document.querySelector('input[name="start"]').value = "";
+            document.querySelector('input[name="end"]').value = "";
+            document.querySelector('input[name="country"]').value = "";
+          }
 
-      function openForm() {
-        document.querySelector(".form-popup").style.display = "block";
-        document.querySelector("body").style.background = "grey";
+          saveEditBtn.addEventListener("click", (event) => {
+            event.preventDefault();
+            const postData = {
+              name: document.querySelector('input[name="name"]').value,
+              start: document.querySelector('input[name="start"]').value,
+              end: document.querySelector('input[name="end"]').value,
+              country: document.querySelector('input[name="country"]').value,
+            };
 
-        for (var i = 0; i < buttonIds.length; i++) {
-          document.getElementById("editBtn" + i).style.color = "grey";
-          document.getElementById("editBtn" + i).style.background = "grey";
-          document.getElementById("editBtn" + i).style.border = "white";
-          document.getElementById("delBtn" + i).style.color = "grey";
-          document.getElementById("delBtn" + i).style.background = "grey";
-          document.getElementById("delBtn" + i).style.border = "white";
-        }
-      }
-
-      function closeForm() {
-        document.querySelector(".form-popup").style.display = "none";
-        document.querySelector("body").style.background = "white";
-        for (var i = 0; i < buttonIds.length; i++) {
-          document.getElementById("editBtn" + i).removeAttribute("style");
-          document.getElementById("delBtn" + i).removeAttribute("style");
-        }
-        document.querySelector('input[name="name"]').value = "";
-        document.querySelector('input[name="start"]').value = "";
-        document.querySelector('input[name="end"]').value = "";
-        document.querySelector('input[name="country"]').value = "";
-      }
-
-      saveEditBtn.addEventListener("click", (event) => {
-        event.preventDefault();
-
-        var postData = {
-          name: (trip.name =
-            document.querySelector('input[name="name"]').value),
-          start: (trip.start = document.querySelector(
-            'input[name="start"]'
-          ).value),
-          end: (trip.end = document.querySelector('input[name="end"]').value),
-          country: (trip.country = document.querySelector(
-            'input[name="country"]'
-          ).value),
-        };
-
-        const updateTripOnDb = async () => {
-          const response = fetch(`${BASE_URL}/trips/` + trip.trip_id, {
-            method: "PUT",
-            mode: "cors",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(postData),
+            const updateTrip = async () => {
+              const response = fetch(`${BASE_URL}/trips/` + trip.trip_id, {
+                method: "PUT",
+                mode: "cors",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(postData),
+              });
+              return response.status === 200;
+            };
+            updateTrip();
+            closeForm();
           });
-          return response.status === 200;
-        };
-        updateTripOnDb();
-
-        closeForm();
-      });
-      cancelEditBtn.addEventListener("click", (event) => {
-        closeForm();
-        event.stopPropagation();
-      });
-    }
-    if (window.location.pathname === "/reise_hinzufugen.html") {
-      addButton.addEventListener("click", function () {
-        if (dataArray[0].lenght === 0) {
-          var row = table.insertRow(0);
-        } else {
-          var row = table.insertRow(dataArray[0].length);
+          cancelEditBtn.addEventListener("click", (event) => {
+            closeForm();
+            event.stopPropagation();
+          });
         }
 
-        let name = document.querySelector("#name").value;
-        let start = document.querySelector("#start").value;
-        let end = document.querySelector("#end").value;
-        let country = document.querySelector("#country").value;
+        if (window.location.pathname === "/reise_hinzufugen.html") {
+          addButton.addEventListener("click", function () {
+            if (dataArray[0].lenght === 0) {
+              var row = table.insertRow(0);
+            } else {
+              var row = table.insertRow(dataArray[0].length);
+            }
 
-        let cell1 = row.insertCell(0);
-        let cell2 = row.insertCell(1);
-        let cell3 = row.insertCell(2);
-        let cell4 = row.insertCell(3);
+            let name = document.querySelector("#name").value;
+            let start = document.querySelector("#start").value;
+            let end = document.querySelector("#end").value;
+            let country = document.querySelector("#country").value;
 
-        cell1.appendChild(document.createTextNode(name));
-        cell2.appendChild(document.createTextNode(start));
-        cell3.appendChild(document.createTextNode(end));
-        cell4.appendChild(document.createTextNode(country));
+            let cell1 = row.insertCell(0);
+            let cell2 = row.insertCell(1);
+            let cell3 = row.insertCell(2);
+            let cell4 = row.insertCell(3);
 
-        var id = buttonIds.length; //nächste freie ID
+            cell1.appendChild(document.createTextNode(name));
+            cell2.appendChild(document.createTextNode(start));
+            cell3.appendChild(document.createTextNode(end));
+            cell4.appendChild(document.createTextNode(country));
 
-        var tableData = {
-          name: name,
-          start: start,
-          end: end,
-          country: country,
-        };
-        dataArray.push(tableData);
+            var id = buttonIds.length; //nächste freie ID
 
-        const addTripToDb = async () => {
-          const response = fetch(`${BASE_URL}/trips`, {
-            method: "POST",
-            mode: "cors",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(tableData),
+            var tableData = {
+              name: name,
+              start: start,
+              end: end,
+              country: country,
+            };
+            dataArray.push(tableData);
+
+            const addTripToDb = async () => {
+              const response = fetch(`${BASE_URL}/trips`, {
+                method: "POST",
+                mode: "cors",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(tableData),
+              });
+              return response.status === 200;
+            };
+            addTripToDb(tableData);
+            clearForm();
           });
-          return response.status === 200;
-        };
-        addTripToDb(tableData);
 
-        // localStorage.setItem("trips", JSON.stringify(dataArray));
+          function clearForm() {
+            document.querySelector("#name").value = "";
+            document.querySelector("#start").value = "";
+            document.querySelector("#end").value = "";
+            document.querySelector("#country").value = "";
+          }
 
-        clearForm();
+          //Reise Dropdown Menu ausfüllen.
+          //Geojson sind die Polygone (Schatten auf den Map)
+          const loadData = async () => {
+            const data = await fetch(
+              "https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_50m_admin_0_countries.geojson"
+            );
+            console.log("hi");
+            return data.json();
+          };
+
+          const getNames = async () => {
+            const geoJson = await loadData();
+            geoJson.features.forEach(loadNames);
+          };
+          function loadNames(item) {
+            //console.log(item.properties.name);
+            let dropDownMenu = document.querySelector("#country");
+            let option = document.createElement("option");
+            option.appendChild(document.createTextNode(item.properties.name));
+            dropDownMenu.append(option);
+          }
+          getNames();
+        }
       });
-
-      function clearForm() {
-        document.querySelector("#name").value = "";
-        document.querySelector("#start").value = "";
-        document.querySelector("#end").value = "";
-        document.querySelector("#country").value = "";
-      }
-
-      
-      //Reise Dropdown Menu ausfüllen.
-      //Geojson sind die Polygone (Schatten auf den Map)
-      const loadData = async () => {
-        const data = await fetch(
-          "https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_50m_admin_0_countries.geojson"
-        );
-        console.log("hi");
-        return data.json();
-      };
-
-      const getNames = async () =>{
-        const geoJson = await loadData();
-        geoJson.features.forEach(loadNames)
-      }
-      function loadNames(item){
-        //console.log(item.properties.name);
-        let dropDownMenu = document.querySelector("#country");
-        let option = document.createElement("option");
-        option.appendChild(document.createTextNode(item.properties.name))
-        dropDownMenu.append(option);
-
-      }
-      getNames();
-
     }
   });
