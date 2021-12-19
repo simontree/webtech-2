@@ -1,10 +1,3 @@
-//Prüfen ob Array bereits mit Daten gefüllt
-// let dataArray = localStorage.getItem("trips")
-//   ? JSON.parse(localStorage.getItem("trips"))
-//   : [];
-
-//var moment = require("moment"); -> Date formatting library
-
 const addButton = document.querySelector(".addTrip");
 let table = document.querySelector(".triptable tbody");
 
@@ -118,7 +111,7 @@ fetch(`${BASE_URL}/trips`)
                 method: "DELETE",
                 mode: "cors",
                 headers: {
-                  "Content-type": "application/json; charset=UTF-8", // Indicates the content
+                  "Content-type": "application/json; charset=UTF-8",
                 },
               });
               console.log("Delete", trip.name);
@@ -175,8 +168,6 @@ fetch(`${BASE_URL}/trips`)
               return response.status === 200;
             };
             updateTrip();
-
-            // localStorage.setItem("trips", JSON.stringify(dataArray));
             closeForm();
           });
           cancelEditBtn.addEventListener("click", (event) => {
@@ -230,9 +221,6 @@ fetch(`${BASE_URL}/trips`)
               return response.status === 200;
             };
             addTripToDb(tableData);
-
-            // localStorage.setItem("trips", JSON.stringify(dataArray));
-
             clearForm();
           });
 
@@ -246,7 +234,7 @@ fetch(`${BASE_URL}/trips`)
       });
     }
 
-    //deprecated with database integration
+    //deprecated with database integration  -> maybe integrate later
     // if (dataArray.length === 0) {
     //   const btnWrapper = document.querySelector("#btnWrapper");
     //   const loadDummysBtn = btnWrapper.appendChild(
