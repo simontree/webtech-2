@@ -4,23 +4,21 @@
  * check if the time is gone and paint the visited countries
  */
 //connect Frontend to Backend
-const BASE_URL = "http://localhost:5000"; 
+const BASE_URL = "https://travelsitebackend.herokuapp.com";
 var map = document.querySelector("#map");
 //Map erzeugen und view setzen auf Lat/Long
 var mymap = L.map(map).setView([51.505, -0.09], 4);
 let countryList = document.querySelector("#besuchte");
 
 fetch(`${BASE_URL}/trips`)
-.then((response) => response.json())
-.then((trip) => {
-
+  .then((response) => response.json())
+  .then((trip) => {
     let tripsJSON = trip;
     //const tripsJSON = importedTrips ? JSON.parse(importedTrips) : [];
 
-
     if (tripsJSON.length > 0) {
       tripsJSON.forEach((trip) => {
-        console.log(trip)
+        console.log(trip);
         let li = document.createElement("li");
         let a = document.createElement("a");
         a.appendChild(document.createTextNode(trip.country));
@@ -85,7 +83,7 @@ fetch(`${BASE_URL}/trips`)
     //Take elements from the list on html, and create list of visited countries
     // old stuff from master-branch below
     function mapToTextArray(liArray) {
-      console.log(liArray)
+      console.log(liArray);
       let countries = [];
       const length = liArray.length;
       let x = "";
@@ -98,4 +96,4 @@ fetch(`${BASE_URL}/trips`)
         return countries;
       }
     }
-});
+  });
