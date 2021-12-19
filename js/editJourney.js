@@ -86,7 +86,6 @@ fetch(`${BASE_URL}/trips`)
               cell4.innerText = document.querySelector(
                 'input[name="country"]'
               ).value;
-
               trip.name = document.querySelector('input[name="name"]').value;
               trip.start = document.querySelector('input[name="start"]').value;
               trip.end = document.querySelector('input[name="end"]').value;
