@@ -169,7 +169,7 @@ fetch(`${BASE_URL}/trips`)
             };
             updateTrip();
             closeForm();
-            location.reload();
+            // location.reload();
           });
           cancelEditBtn.addEventListener("click", (event) => {
             closeForm();
