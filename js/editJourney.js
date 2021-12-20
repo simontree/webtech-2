@@ -87,6 +87,7 @@ fetch(`${BASE_URL}/trips`)
               ).value;
             });
             console.log("Edit", trip.name);
+
             console.log("tripID after editBtnclick: " + trip.trip_id);
             console.log("tripname : " + trip.name);
           });
@@ -155,7 +156,6 @@ fetch(`${BASE_URL}/trips`)
               end: document.querySelector('input[name="end"]').value,
               country: document.querySelector('input[name="country"]').value,
             };
-
             const updateTrip = async () => {
               const response = fetch(`${BASE_URL}/trips/` + trip.trip_id, {
                 method: "PUT",
@@ -165,6 +165,7 @@ fetch(`${BASE_URL}/trips`)
                 },
                 body: JSON.stringify(postData),
               });
+              location.reload();
               return response.status === 200;
             };
             updateTrip();
