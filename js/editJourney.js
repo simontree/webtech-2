@@ -165,11 +165,11 @@ fetch(`${BASE_URL}/trips`)
                 },
                 body: JSON.stringify(postData),
               });
-              location.reload();
               return response.status === 200;
             };
             updateTrip();
             closeForm();
+            location.reload();
           });
           cancelEditBtn.addEventListener("click", (event) => {
             closeForm();
