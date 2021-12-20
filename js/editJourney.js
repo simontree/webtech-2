@@ -165,6 +165,7 @@ fetch(`${BASE_URL}/trips`)
                 },
                 body: JSON.stringify(postData),
               });
+              location.reload();
               return response.status === 200;
             };
             updateTrip();
