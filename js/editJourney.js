@@ -40,7 +40,7 @@ fetch(`${BASE_URL}/trips`)
         const cell4 = row
           .insertCell(3)
           .appendChild(document.createElement("td"));
-
+        console.log("tripid begin: " + trip.trip_id);
         cell1.innerText = trip.name;
         cell2.innerText = trip.start;
         cell3.innerText = trip.end;
@@ -63,7 +63,9 @@ fetch(`${BASE_URL}/trips`)
 
           editBtn.addEventListener("click", (event) => {
             event.preventDefault();
+
             openForm();
+
             document.querySelector('input[name="name"]').value =
               cell1.innerText;
             document.querySelector('input[name="start"]').value =
@@ -83,15 +85,8 @@ fetch(`${BASE_URL}/trips`)
               cell4.innerText = document.querySelector(
                 'input[name="country"]'
               ).value;
-              trip.name = document.querySelector('input[name="name"]').value;
-              trip.start = document.querySelector('input[name="start"]').value;
-              trip.end = document.querySelector('input[name="end"]').value;
-              trip.country = document.querySelector(
-                'input[name="country"]'
-              ).value;
             });
             console.log("Edit", trip.name);
-
             console.log("tripID after editBtnclick: " + trip.trip_id);
             console.log("tripname : " + trip.name);
           });
@@ -112,19 +107,24 @@ fetch(`${BASE_URL}/trips`)
               );
               console.log("trip.trip_id deleted: " + trip.trip_id);
             }
-            fetch(`${BASE_URL}/trips/` + trip.trip_id, {
-              method: "DELETE",
-              mode: "cors",
-              headers: {
-                "Content-type": "application/json; charset=UTF-8",
-              },
-            });
-            console.log("Delete", trip.name);
-            // location.reload();
-          });
-        }
 
-        if (window.location.pathname === "/reise_bearbeiten.html") {
+            const deleteTrip = async () => {
+              const response = await fetch(
+                `${BASE_URL}/trips/` + trip.trip_id,
+                {
+                  method: "DELETE",
+                  mode: "cors",
+                  headers: {
+                    "Content-type": "application/json; charset=UTF-8",
+                  },
+                }
+              );
+              const reload = await window.location.reload();
+            };
+            deleteTrip();
+            console.log("Delete", trip.name);
+          });
+
           function openForm() {
             document.querySelector(".form-popup").style.display = "block";
             document.querySelector("body").style.background = "grey";
@@ -160,20 +160,28 @@ fetch(`${BASE_URL}/trips`)
               end: document.querySelector('input[name="end"]').value,
               country: document.querySelector('input[name="country"]').value,
             };
+
+            //TODO: PUT request wird 2x ausgeführt, mit forEach zu tun? bessere Lösung??
             const updateTrip = async () => {
-              const response = fetch(`${BASE_URL}/trips/` + trip.trip_id, {
-                method: "PUT",
-                mode: "cors",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify(postData),
-              });
-              location.reload();
+              const response = await fetch(
+                `${BASE_URL}/trips/` + trip.trip_id,
+                {
+                  method: "PUT",
+                  mode: "cors",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify(postData),
+                }
+              );
+              const reload = await location.reload();
               return response.status === 200;
             };
             updateTrip();
+            console.log("hi");
             closeForm();
+
+            event.stopPropagation();
           });
           cancelEditBtn.addEventListener("click", (event) => {
             closeForm();
@@ -183,7 +191,7 @@ fetch(`${BASE_URL}/trips`)
 
         if (window.location.pathname === "/reise_hinzufugen.html") {
           addButton.addEventListener("click", function () {
-            if (dataArray[0].lenght === 0) {
+            if (dataArray[0].length === 0) {
               var row = table.insertRow(0);
             } else {
               var row = table.insertRow(dataArray[0].length);
