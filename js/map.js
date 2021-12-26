@@ -18,7 +18,7 @@ fetch(`${BASE_URL}/trips`)
 
     if (tripsJSON.length > 0) {
       tripsJSON.forEach((trip) => {
-        console.log(trip);
+        //console.log(trip);
         let li = document.createElement("li");
         let a = document.createElement("a");
         a.appendChild(document.createTextNode(trip.country));
@@ -83,7 +83,7 @@ fetch(`${BASE_URL}/trips`)
     //Take elements from the list on html, and create list of visited countries
     // old stuff from master-branch below
     function mapToTextArray(liArray) {
-      console.log(liArray);
+      //console.log(liArray);
       let countries = [];
       const length = liArray.length;
       let x = "";
