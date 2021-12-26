@@ -71,7 +71,7 @@ fetch(`${BASE_URL}/trips`)
             document.querySelector('input[name="start"]').value =
               cell2.innerText;
             document.querySelector('input[name="end"]').value = cell3.innerText;
-            document.querySelector('input[name="country"]').value =
+            document.querySelector('select[class="dropdown"]').value =
               cell4.innerText;
 
             form.addEventListener("change", (event) => {
@@ -83,7 +83,7 @@ fetch(`${BASE_URL}/trips`)
               cell3.innerText =
                 document.querySelector('input[name="end"]').value;
               cell4.innerText = document.querySelector(
-                'input[name="country"]'
+                'select[class="dropdown"]'
               ).value;
             });
             console.log("Edit", trip.name);
@@ -149,7 +149,7 @@ fetch(`${BASE_URL}/trips`)
             document.querySelector('input[name="name"]').value = "";
             document.querySelector('input[name="start"]').value = "";
             document.querySelector('input[name="end"]').value = "";
-            document.querySelector('input[name="country"]').value = "";
+            document.querySelector('select[class="dropdown"]').value = "";
           }
 
           saveEditBtn.addEventListener("click", (event) => {
@@ -158,7 +158,7 @@ fetch(`${BASE_URL}/trips`)
               name: document.querySelector('input[name="name"]').value,
               start: document.querySelector('input[name="start"]').value,
               end: document.querySelector('input[name="end"]').value,
-              country: document.querySelector('input[name="country"]').value,
+              country: document.querySelector('select[class="dropdown"]').value,
             };
 
             //TODO: PUT request wird 2x ausgeführt, mit forEach zu tun? bessere Lösung??
@@ -178,7 +178,7 @@ fetch(`${BASE_URL}/trips`)
               return response.status === 200;
             };
             updateTrip();
-            console.log("hi");
+            //console.log("hi");
             closeForm();
 
             event.stopPropagation();
@@ -200,7 +200,7 @@ fetch(`${BASE_URL}/trips`)
             let name = document.querySelector("#name").value;
             let start = document.querySelector("#start").value;
             let end = document.querySelector("#end").value;
-            let country = document.querySelector("#country").value;
+            let country = document.querySelector(".dropdown").value;
 
             let cell1 = row.insertCell(0);
             let cell2 = row.insertCell(1);
@@ -223,7 +223,7 @@ fetch(`${BASE_URL}/trips`)
             dataArray.push(tableData);
 
             const addTripToDb = async () => {
-              const response = fetch(`${BASE_URL}/trips`, {
+              const response = await fetch(`${BASE_URL}/trips`, {
                 method: "POST",
                 mode: "cors",
                 headers: {
@@ -231,6 +231,7 @@ fetch(`${BASE_URL}/trips`)
                 },
                 body: JSON.stringify(tableData),
               });
+              const reload = await location.reload();
               return response.status === 200;
             };
             addTripToDb(tableData);
@@ -241,7 +242,7 @@ fetch(`${BASE_URL}/trips`)
             document.querySelector("#name").value = "";
             document.querySelector("#start").value = "";
             document.querySelector("#end").value = "";
-            document.querySelector("#country").value = "";
+            document.querySelector(".dropdown").value = "";
           }
 
           
