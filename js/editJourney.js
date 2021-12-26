@@ -137,6 +137,45 @@ fetch(`${BASE_URL}/trips`)
               document.getElementById("delBtn" + i).style.background = "grey";
               document.getElementById("delBtn" + i).style.border = "white";
             }
+
+            saveEditBtn.addEventListener("click", (event) => {
+              event.preventDefault();
+              const postData = {
+                name: document.querySelector('input[name="name"]').value,
+                start: document.querySelector('input[name="start"]').value,
+                end: document.querySelector('input[name="end"]').value,
+                country: document.querySelector('select[class="dropdown"]')
+                  .value,
+              };
+
+              //TODO: PUT request wird 2x ausgeführt, mit forEach zu tun? bessere Lösung??
+              const updateTrip = async () => {
+                const response = await fetch(
+                  `${BASE_URL}/trips/` + trip.trip_id,
+                  {
+                    method: "PATCH",
+                    mode: "cors",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(postData),
+                  }
+                );
+                const reload = await location.reload();
+                return response.status === 200;
+              };
+              updateTrip();
+              // event.stopImmediatePropagation();
+              //console.log("hi");
+              closeForm();
+
+              event.stopPropagation();
+            });
+
+            cancelEditBtn.addEventListener("click", (event) => {
+              closeForm();
+              event.stopPropagation();
+            });
           }
 
           function closeForm() {
@@ -151,42 +190,6 @@ fetch(`${BASE_URL}/trips`)
             document.querySelector('input[name="end"]').value = "";
             document.querySelector('select[class="dropdown"]').value = "";
           }
-
-          saveEditBtn.addEventListener("click", (event) => {
-            event.preventDefault();
-            const postData = {
-              name: document.querySelector('input[name="name"]').value,
-              start: document.querySelector('input[name="start"]').value,
-              end: document.querySelector('input[name="end"]').value,
-              country: document.querySelector('select[class="dropdown"]').value,
-            };
-
-            //TODO: PUT request wird 2x ausgeführt, mit forEach zu tun? bessere Lösung??
-            const updateTrip = async () => {
-              const response = await fetch(
-                `${BASE_URL}/trips/` + trip.trip_id,
-                {
-                  method: "PUT",
-                  mode: "cors",
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                  body: JSON.stringify(postData),
-                }
-              );
-              const reload = await location.reload();
-              return response.status === 200;
-            };
-            updateTrip();
-            //console.log("hi");
-            closeForm();
-
-            event.stopPropagation();
-          });
-          cancelEditBtn.addEventListener("click", (event) => {
-            closeForm();
-            event.stopPropagation();
-          });
         }
 
         if (window.location.pathname === "/reise_hinzufugen.html") {
@@ -244,28 +247,26 @@ fetch(`${BASE_URL}/trips`)
             document.querySelector("#end").value = "";
             document.querySelector(".dropdown").value = "";
           }
-
-          
         }
       });
     }
   });
-  //Geojson sind die Polygone (Schatten auf den Map)
-  const loadData = async () => {
-    const data = await fetch(
-      "https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_50m_admin_0_countries.geojson"
-    );
-    return data.json();
-  };
+//Geojson sind die Polygone (Schatten auf den Map)
+const loadData = async () => {
+  const data = await fetch(
+    "https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_50m_admin_0_countries.geojson"
+  );
+  return data.json();
+};
 
-  const getNames = async () => {
-    const geoJson = await loadData();
-    geoJson.features.forEach(loadNames);
-  };
-  function loadNames(item) {
-    //console.log(item.properties.name);
-    let dropDownMenu = document.querySelector('.dropdown');
-    let option = document.createElement("option");
-    option.appendChild(document.createTextNode(item.properties.name));
-    dropDownMenu.append(option);
-  }
+const getNames = async () => {
+  const geoJson = await loadData();
+  geoJson.features.forEach(loadNames);
+};
+function loadNames(item) {
+  //console.log(item.properties.name);
+  let dropDownMenu = document.querySelector(".dropdown");
+  let option = document.createElement("option");
+  option.appendChild(document.createTextNode(item.properties.name));
+  dropDownMenu.append(option);
+}
