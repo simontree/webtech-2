@@ -1,5 +1,5 @@
 //connect Frontend to Backend
-const BASE_URL = "https://travelsitebackend.herokuapp.com/";
+const BASE_URL = "https://travelsitebackend.herokuapp.com";
 
 const loginButton = document.querySelector(".loginBtn");
 
