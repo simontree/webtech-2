@@ -18,9 +18,4 @@ function pwValidation() {
     body: JSON.stringify(tableData),
   });
   return response.status === 200;
-  /*if (mail === "huehne@htw-berlin.de" && password === "hunter2"){
-        window.location.replace("map.html"); 
-    }else{
-        alert ("Falsche Login Daten");
-    }*/
 }
