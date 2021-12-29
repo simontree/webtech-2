@@ -158,7 +158,7 @@ fetch(`${BASE_URL}/trips`)
 
             const updateTrip = async () => {
               const response = fetch(`${BASE_URL}/trips/` + trip.trip_id, {
-                method: "PUT",
+                method: "PATCH",
                 mode: "cors",
                 headers: {
                   "Content-Type": "application/json",
