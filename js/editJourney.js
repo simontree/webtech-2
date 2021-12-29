@@ -147,8 +147,6 @@ fetch(`${BASE_URL}/trips`)
                 country: document.querySelector('select[class="dropdown"]')
                   .value,
               };
-
-              //TODO: PUT request wird 2x ausgeführt, mit forEach zu tun? bessere Lösung??
               const updateTrip = async () => {
                 const response = await fetch(
                   `${BASE_URL}/trips/` + trip.trip_id,
@@ -165,8 +163,6 @@ fetch(`${BASE_URL}/trips`)
                 return response.status === 200;
               };
               updateTrip();
-              // event.stopImmediatePropagation();
-              //console.log("hi");
               closeForm();
 
               event.stopPropagation();
