@@ -14,6 +14,12 @@ const BASE_URL = "https://travelsitebackend.herokuapp.com";
 let dataArray = [];
 var arrayLength = 0;
 
+function userEmail(){
+  cookieParsing = document.cookie.split('=')[0];
+  console.log(cookieParsing);
+  return cookieParsing;
+};
+
 //get existing trips from database
 fetch(`${BASE_URL}/trips`)
   .then((response) => response.json())
@@ -25,6 +31,8 @@ fetch(`${BASE_URL}/trips`)
 
     //Reise Dropdown Menu ausfüllen.
     getNames();
+    //Get Email from session
+    userEmail();
 
     if (dataArray.length > 0) {
       dataArray[0].forEach((trip) => {
