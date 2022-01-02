@@ -26,7 +26,7 @@ loginButton.addEventListener("click", function () {
     console.log(response);
     if (response) {
         const d = new Date();
-        d.setTime(d.getTime() + (exdays*24*60*60*1000));
+        d.setTime(d.getTime() + (24*60*60*1000));
         let expires = "expires=" + d.toUTCString();
         let email = response.email;
         console.log(email);
