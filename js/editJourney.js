@@ -21,7 +21,7 @@ function userEmail(){
 };
 
 //get existing trips from database
-fetch(`${BASE_URL}/trips/` + userEmail(), {method: 'POST', body: {email:userEmail(),},})
+fetch(`${BASE_URL}/trips/` + userEmail(), {method: 'POST', body: {user_id: userEmail(),},})
   .then((response) => response.json())
   .then((trip) => {
     console.log("connected to db");
@@ -126,8 +126,7 @@ fetch(`${BASE_URL}/trips/` + userEmail(), {method: 'POST', body: {email:userEmai
                   mode: "cors",
                   headers: {
                     "Content-type": "application/json; charset=UTF-8",
-                  },
-                  body: {email:userEmail()},
+                  }
                 }
               );
               const reload = await window.location.reload();
@@ -157,7 +156,7 @@ fetch(`${BASE_URL}/trips/` + userEmail(), {method: 'POST', body: {email:userEmai
                 end: document.querySelector('input[name="end"]').value,
                 country: document.querySelector('select[class="dropdown"]')
                   .value,
-                email: userEmail(),
+                  user_id: userEmail(),
               };
               
               const updateTrip = async () => {
@@ -206,7 +205,7 @@ fetch(`${BASE_URL}/trips/` + userEmail(), {method: 'POST', body: {email:userEmai
               start: document.querySelector('input[name="start"]').value,
               end: document.querySelector('input[name="end"]').value,
               country: document.querySelector('input[name="country"]').value,
-              email: userEmail(),
+              user_id: userEmail(),
             };
 
             const updateTrip = async () => {
@@ -260,7 +259,7 @@ fetch(`${BASE_URL}/trips/` + userEmail(), {method: 'POST', body: {email:userEmai
               start: start,
               end: end,
               country: country,
-              email: userEmail(),
+              user_id: userEmail(),
             };
             dataArray.push(tableData);
 
