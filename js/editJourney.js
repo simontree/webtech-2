@@ -21,7 +21,7 @@ function userEmail(){
 };
 
 //get existing trips from database
-fetch(`${BASE_URL}/trips`)
+fetch(`${BASE_URL}/trips`, {method: 'GET', body: {email:userEmail()}})
   .then((response) => response.json())
   .then((trip) => {
     console.log("connected to db");
@@ -33,7 +33,7 @@ fetch(`${BASE_URL}/trips`)
     //Reise Dropdown Menu ausfüllen.
     getNames();
     //Get Email from session
-    userEmail();
+    const userEmail = userEmail();
 
     if (dataArray.length > 0) {
       dataArray[0].forEach((trip) => {
@@ -127,6 +127,7 @@ fetch(`${BASE_URL}/trips`)
                   headers: {
                     "Content-type": "application/json; charset=UTF-8",
                   },
+                  body: {email:userEmail()},
                 }
               );
               const reload = await window.location.reload();
@@ -156,7 +157,9 @@ fetch(`${BASE_URL}/trips`)
                 end: document.querySelector('input[name="end"]').value,
                 country: document.querySelector('select[class="dropdown"]')
                   .value,
+                email: userEmail(),
               };
+              
               const updateTrip = async () => {
                 const response = await fetch(
                   `${BASE_URL}/trips/` + trip.trip_id,
@@ -203,6 +206,7 @@ fetch(`${BASE_URL}/trips`)
               start: document.querySelector('input[name="start"]').value,
               end: document.querySelector('input[name="end"]').value,
               country: document.querySelector('input[name="country"]').value,
+              email: userEmail(),
             };
 
             const updateTrip = async () => {
@@ -256,6 +260,7 @@ fetch(`${BASE_URL}/trips`)
               start: start,
               end: end,
               country: country,
+              email: userEmail(),
             };
             dataArray.push(tableData);
 
