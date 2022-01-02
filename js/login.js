@@ -28,7 +28,7 @@ loginButton.addEventListener("click", function () {
         const d = new Date();
         d.setTime(d.getTime() + (24*60*60*1000));
         let expires = "expires=" + d.toUTCString();
-        let email = response.email;
+        let email = mail;
         console.log(email);
         document.cookie = email+"=session" + ";" + expires + ";path=/";
         window.location.replace("map.html");
