@@ -25,13 +25,7 @@ loginButton.addEventListener("click", function () {
       });
     console.log(response);
     if (response) {
-        const d = new Date();
-        d.setTime(d.getTime() + (exdays*24*60*60*1000));
-        let expires = "expires=" + d.toUTCString();
-        let session = response.session;
-        console.log(session);
-        document.cookie = "session=" + session + ";" + expires + ";path=/";
-        window.location.replace("map.html");
+      window.location.replace("map.html");
     } else {
       alert("Falsche Login Daten");
     }
