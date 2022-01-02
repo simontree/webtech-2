@@ -21,7 +21,7 @@ function userEmail(){
 };
 
 //get existing trips from database
-fetch(`${BASE_URL}/trips`, {method: 'GET', body: {email:userEmail()}})
+fetch(`${BASE_URL}/trips`, {method: 'GET', body: {email:userEmail(),},})
   .then((response) => response.json())
   .then((trip) => {
     console.log("connected to db");
