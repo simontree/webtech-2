@@ -30,7 +30,7 @@ loginButton.addEventListener("click", function () {
         let expires = "expires=" + d.toUTCString();
         let email = tableData.email;
         console.log(email);
-        document.cookie = "session=" + email + "==;" + expires + ";path=/";
+        document.cookie = "session=" + email + ";" + expires + ";path=/";
         window.location.replace("map.html");
     } else {
       alert("Falsche Login Daten");
