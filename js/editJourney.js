@@ -15,7 +15,7 @@ let dataArray = [];
 var arrayLength = 0;
 
 function userEmail(){
-  cookieParsing = document.cookie.split('=')[0];
+  cookieParsing = document.cookie.split('=')[1];
   console.log(cookieParsing);
   return cookieParsing;
 };
@@ -25,6 +25,7 @@ fetch(`${BASE_URL}/trips`)
   .then((response) => response.json())
   .then((trip) => {
     console.log("connected to db");
+    console.log(userEmail());
     let array = trip;
     dataArray.push(array);
     arrayLength = dataArray[0].length;
