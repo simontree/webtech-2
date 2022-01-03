@@ -34,7 +34,7 @@ fetch(`${BASE_URL}/trips/` + user, {method: 'POST', body: {user_id:  user,},})
     //Reise Dropdown Menu ausfüllen.
     getNames();
     //Get Email from session
-    const userEmail = user;
+    //const userEmail = user;
 
     if (dataArray.length > 0) {
       dataArray[0].forEach((trip) => {
@@ -157,7 +157,7 @@ fetch(`${BASE_URL}/trips/` + user, {method: 'POST', body: {user_id:  user,},})
                 end: document.querySelector('input[name="end"]').value,
                 country: document.querySelector('select[class="dropdown"]')
                   .value,
-                  user_id: userEmail(),
+                  user_id: user,
               };
               
               const updateTrip = async () => {
@@ -206,7 +206,7 @@ fetch(`${BASE_URL}/trips/` + user, {method: 'POST', body: {user_id:  user,},})
               start: document.querySelector('input[name="start"]').value,
               end: document.querySelector('input[name="end"]').value,
               country: document.querySelector('input[name="country"]').value,
-              user_id: userEmail(),
+              user_id: user,
             };
 
             const updateTrip = async () => {
@@ -260,7 +260,7 @@ fetch(`${BASE_URL}/trips/` + user, {method: 'POST', body: {user_id:  user,},})
               start: start,
               end: end,
               country: country,
-              user_id: userEmail(),
+              user_id: user,
             };
             dataArray.push(tableData);
 
