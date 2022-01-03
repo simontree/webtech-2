@@ -14,14 +14,14 @@ const BASE_URL = "https://travelsitebackend.herokuapp.com";
 let dataArray = [];
 var arrayLength = 0;
 
-function userEmail(){
+async function userEmail(){
   cookieParsing = document.cookie.split('=')[1];
   console.log(cookieParsing);
   return cookieParsing;
 };
 
 //get existing trips from database
-fetch(`${BASE_URL}/trips/` + userEmail(), {method: 'POST', body: {user_id: userEmail(),},})
+fetch(`${BASE_URL}/trips/` + userEmail(), {method: 'POST', body: {user_id: await userEmail(),},})
   .then((response) => response.json())
   .then((trip) => {
     console.log("connected to db");
