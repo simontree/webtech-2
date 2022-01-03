@@ -163,7 +163,7 @@ fetch(`${BASE_URL}/trips/` + userEmail(), {method: 'POST', body: {user_id: userE
                 const response = await fetch(
                   `${BASE_URL}/trips/` + trip.trip_id,
                   {
-                    method: "PATCH",
+                    method: "POST",
                     mode: "cors",
                     headers: {
                       "Content-Type": "application/json",
