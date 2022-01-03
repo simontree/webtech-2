@@ -20,12 +20,13 @@ function userEmail(){
   return cookieParsing;
 };
 
+const user = userEmail()
 //get existing trips from database
-fetch(`${BASE_URL}/trips/` + userEmail(), {method: 'POST', body: {user_id:  userEmail(),},})
+fetch(`${BASE_URL}/trips/` + user, {method: 'POST', body: {user_id:  user,},})
   .then((response) => response.json())
   .then((trip) => {
     console.log("connected to db");
-    console.log(userEmail());
+    console.log(trip);
     let array = trip;
     dataArray.push(array);
     arrayLength = dataArray[0].length;
