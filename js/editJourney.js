@@ -16,13 +16,13 @@ var arrayLength = 0;
 
 function userSession(){
   cookieParsing = document.cookie.split('=')[1];
-  console.log(cookieParsing);
+  //console.log(cookieParsing);
   return cookieParsing;
 };
 
 const user = userSession()
 //get existing trips from database
-fetch(`${BASE_URL}/trips/` + user, {method: 'POST', body: {user_id:  user,},})
+fetch(`${BASE_URL}/trips/` + user, {method: 'POST', body: JSON.stringify({user_id:  user,}),})
   .then((response) => response.json())
   .then((trip) => {
     console.log("connected to db");
@@ -34,7 +34,6 @@ fetch(`${BASE_URL}/trips/` + user, {method: 'POST', body: {user_id:  user,},})
     //Reise Dropdown Menu ausfüllen.
     getNames();
     //Get Email from session
-    //const userEmail = user;
 
     if (dataArray.length > 0) {
       dataArray[0].forEach((trip) => {
