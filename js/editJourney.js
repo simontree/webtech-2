@@ -34,7 +34,7 @@ fetch(`${BASE_URL}/trips/` + user, {method: 'POST', body: {user_id:  user,},})
     //Reise Dropdown Menu ausfüllen.
     getNames();
     //Get Email from session
-    const userEmail = userEmail();
+    const userEmail = user;
 
     if (dataArray.length > 0) {
       dataArray[0].forEach((trip) => {
