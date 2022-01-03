@@ -21,7 +21,7 @@ async function userEmail(){
 };
 
 //get existing trips from database
-fetch(`${BASE_URL}/trips/` + userEmail(), {method: 'POST', body: {user_id: await userEmail(),},})
+fetch(`${BASE_URL}/trips/` + userEmail(), {method: 'POST', body: {user_id:  userEmail(),},})
   .then((response) => response.json())
   .then((trip) => {
     console.log("connected to db");
