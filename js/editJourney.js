@@ -23,13 +23,7 @@ function userSession(){
 const user = userSession()
 const userObj = {user_id:  user,}
 //get existing trips from database
-fetch(`${BASE_URL}/trips/` + user, 
-  {method: 'POST', 
-  mode: "cors",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify(userObj)})
+fetch(`${BASE_URL}/trips/` + user, {method: 'POST', body: JSON.stringify(userObj)})
   .then((response) => response.json())
   .then((trip) => {
     console.log("connected to db");
