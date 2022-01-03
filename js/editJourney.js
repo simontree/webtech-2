@@ -8,7 +8,7 @@ var buttonID = 0;
 const form = document.querySelector(".form-popup");
 
 //connect Frontend to Backend
-const BASE_URL = "https://travelsitebackend.herokuapp.com";
+const BASE_URL = "https://cors.io/?https://travelsitebackend.herokuapp.com";
 
 
 let dataArray = [];
