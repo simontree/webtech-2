@@ -26,7 +26,7 @@ loginButton.addEventListener("click", function () {
         d.setTime(d.getTime() + (24*60*60*1000));
         let expires = "expires=" + d.toUTCString();
         let email = tableData.email;
-            document.cookie = "session=" + res.sessionID + "=;" + expires + ";path=/";
+            document.cookie = "session=" + res.sessionID + ";" + expires + ";path=/";
         }return res.status == 200;
       });
     console.log(response);
