@@ -14,7 +14,7 @@ const BASE_URL = "https://travelsitebackend.herokuapp.com";
 let dataArray = [];
 var arrayLength = 0;
 
-async function userEmail(){
+function userEmail(){
   cookieParsing = document.cookie.split('=')[1];
   console.log(cookieParsing);
   return cookieParsing;
