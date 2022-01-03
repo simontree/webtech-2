@@ -21,6 +21,7 @@ loginButton.addEventListener("click", function () {
     })
       .then((response) => response.json())
       .then((res) => {
+        if(res.status == 200)document.cookie = "session=" + res.sessionID + ";" + expires + ";path=/";
         return res.status == 200;
       });
     console.log(response);
@@ -30,7 +31,7 @@ loginButton.addEventListener("click", function () {
         let expires = "expires=" + d.toUTCString();
         let email = tableData.email;
         //console.log(email);
-        document.cookie = "session=" + response.sessionID + ";" + expires + ";path=/";
+        
         window.location.replace("map.html");
     } else {
       alert("Falsche Login Daten");
