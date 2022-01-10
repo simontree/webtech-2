@@ -21,20 +21,11 @@ loginButton.addEventListener("click", function () {
     })
       .then((response) => response.json())
       .then((res) => {
-        if(res.status == 200){
-            const d = new Date();
-        d.setTime(d.getTime() + (24*60*60*1000));
-        let expires = "expires=" + d.toUTCString();
-        let email = tableData.email;
-            document.cookie = "session=" + res.sessionID + ";" + expires + ";path=/";
-        }return res.status == 200;
+        return res.status == 200;
       });
     console.log(response);
     if (response) {
-        
-        //console.log(email);
-        
-        window.location.replace("map.html");
+      window.location.replace("map.html");
     } else {
       alert("Falsche Login Daten");
     }
