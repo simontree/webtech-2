@@ -20,53 +20,52 @@
                         <li><a href="map.html">Karte</a></li>
                         <li><a href="reise_hinzufugen.html">Reise hinzufügen</a></li>
                         <li><a href="reise_bearbeiten.html">Reise bearbeiten</a></li>
+                        <li><a href="index.html" id="logoutBtn">Logout</a></li>
                     </ul>
                 </nav>
             </div>
         </header>
         <main>
-            <table class="triptable">
-                <tr>
-                    <th>Bearbeiten</th>
-                    <th>Löschen</th>
+            <h2>Meine Reisen: </h1><br>
+                <div id="btnWrapper">
+                <table class="triptable">
+                <thead>
+                    <tr>
                     <th>Reisename</th>
                     <th>Anfang</th>
                     <th>Ende</th>
                     <th>Reiseland</th>
                 </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td><input type="checkbox"></td>
-                    <td>Surfen & Entspannung</td>
-                    <td>07.09.2021</td>
-                    <td>14.09.2021</td>
-                    <td>Kuba</td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td><input type="checkbox"></td>
-                    <td>Spa-Woche </td>
-                    <td>02.10.2021</td>
-                    <td>08.10.2021</td>
-                    <td>Spanien</td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td><input type="checkbox"></td>
-                    <td>Erholung unter Palmen </td>
-                    <td>05.01.2022</td>
-                    <td>12.01.2022</td>
-                    <td>Ungarn</td>
-                </tr>
+                </thead>
+                <tbody>
+                </tbody>
             </table>
-            <br>
-            <button><h4>Jetzt ändern</h4></button>
+        </div>
+        
+        <!--Popup zum Reise bearbeiten-->
+        <div class="form-popup">
+            <form class="form-container">
+                <h1>Reise bearbeiten</h1>
+                <label for="name">Reisename</label>
+                <input type="text" name="name" id="editTripname">
+                <label for="start">Anfang</label>
+                <input type="date" name="start" id="editStartDate">
+                <label for="end">Ende</label>
+                <input type="date" name="end" id="editEndDate">
+                <label for="country">Reiseland</label>
+                <select name="country" class="dropdown">
+                </select>
+                <button id="saveEdit">Änderungen übernehmen</button>
+                <button id="cancelEdit">Abbrechen</button>
+            </form>
+        </div>
+    
         </main>
         <footer>
             © 2021
         </footer>
-
     </div>
+    <script src="js/editJourney.js"></script>
 </body>
 
  </html>

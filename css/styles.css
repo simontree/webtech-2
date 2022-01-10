@@ -1,5 +1,6 @@
 body{
     font-family: "Roboto", sans-serif;
+    
 }
 
 .container{
@@ -14,6 +15,10 @@ body{
 
 .login{
     margin: auto;
+}
+
+#logoutBtn {
+    background-color:rgb(200, 219, 255);
 }
 
 .container-after-login-map {
@@ -65,6 +70,7 @@ main {
     grid-area: main;
     line-height: 30px; 
     padding: 40px;
+    overflow-y: scroll;
 }
 
 aside{
@@ -96,6 +102,10 @@ footer {
     padding: 15px;
     border-radius: 20px;
     background-color: rgb(124, 168, 255);
+}
+
+.menu li #logoutBtn:hover{
+    background-color: rgb(255, 182, 182);
 }
 
 .mapimage{
@@ -145,13 +155,37 @@ a{
 
 .triptable td{
     width: 250px;
-    border: black solid 1px;
-}
+  }
 
 .triptable{
-    border: rgb(145, 145, 145) solid 1px;
+    border-top: black solid 1px;
+    border-bottom: black solid 1px;
     margin: auto;
 }
+.triptable tr td#btn{
+    border: none;
+}
+
+/* popup formular - versteckt by default */
+.form-popup {
+    display: none;
+    position:fixed;
+    top: 25%;
+    border: 3px solid #f1f1f1;
+  }
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+    padding: 10px;
+    background-color: rgb(226, 235, 255);
+  }
+.form-container label{
+    font-size: 16px;
+}
+
+
 /*responsive Part*/
 @media(max-width: 790px){
     .container-after-login-map {
@@ -189,6 +223,8 @@ a{
         grid-area: main;
         font-size: 11px;        
         justify-items: center;
+        overflow-y: auto;
+        height:400px;
     }
     aside{
         grid-area: aside;
@@ -213,5 +249,11 @@ a{
     }
     .journeylist h2{
         margin-top: 20px;
+    }
+    .triptable tr th{
+        font-size: 16px;
+    }
+    .triptable tr td{
+        font-size: 15px;
     }
 }

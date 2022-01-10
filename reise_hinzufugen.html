@@ -7,6 +7,7 @@
     <link rel="shortcut icon" href="images/favicon.ico">
     <link rel="stylesheet" href="css/styles.css">
     <title>Deine Reisekarte ins Nirwana</title>
+    
 </head>
 
 <body>
@@ -20,52 +21,40 @@
                         <li><a href="map.html">Karte</a></li>
                         <li><a href="reise_hinzufugen.html">Reise hinzufügen</a></li>
                         <li><a href="reise_bearbeiten.html">Reise bearbeiten</a></li>
+                        <li><a href="index.html" id="logoutBtn">Logout</a></li>
                     </ul>
                 </nav>
             </div>
         </header>
         <main>
-            <h2>Vergangene Reisen: </h1>
+            <h2>Meine Reisen: </h1><br>
             
             <table class="triptable">
+                <thead>
                 <tr>
                     <th>Reisename</th>
                     <th>Anfang</th>
                     <th>Ende</th>
                     <th>Reiseland</th>
                 </tr>
-                <tr>
-                    <td>Surfen & Entspannung</td>
-                    <td>07.09.2021</td>
-                    <td>14.09.2021</td>
-                    <td>Kuba</td>
-                </tr>
-                <tr>
-                    <td>Spa-Woche </td>
-                    <td>02.10.2021</td>
-                    <td>08.10.2021</td>
-                    <td>Spanien</td>
-                </tr>
-                <tr>
-                    <td>Erholung unter Palmen </td>
-                    <td>05.01.2022</td>
-                    <td>12.01.2021</td>
-                    <td>Ungarn</td>
-                  
-                </tr>
+                 </thead>
+                <tbody>
+                </tbody>
             </table>
             <div class="formularadd">
-                <label for="tripname">Reisename:</label>
-                <input type="text" style="height: 15px; resize: none"> </input>
+                <label for="name">Reisename:</label>
+                <input id="name" type="text" style="height: 15px; resize: none"> </input>
                 <br>
                 <label for="start" >Anfang:</label>
-                <input type="date" style="height: 15px; resize: none"> </input>
+                <input id="start" type="date" style="height: 15px; resize: none"> </input>
                 <br>
                 <label for="end">Ende:</label>
-                <input type="date" style="height: 15px; resize: none"> </input>
+                <input id="end" type="date" style="height: 15px; resize: none"> </input>
                 <br>
                 <label for="country">Reiseland:</label>
-                <input type="text" style="height: 15px; resize: none"> </input>
+                <!--<input id="country" type="text" style="height: 15px; resize: none"> </input>-->
+                <select name="country" class="dropdown" style="width: 180px;">
+                </select>
                 <br>
                 <a><button class="addTrip" type="button">Hinzufügen</button></a>
             </div>
@@ -75,6 +64,8 @@
         </footer>
 
     </div>
+    <script src="js/editJourney.js"></script>
+
 </body>
 
  </html>
