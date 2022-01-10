@@ -8,39 +8,23 @@ var buttonID = 0;
 const form = document.querySelector(".form-popup");
 
 //connect Frontend to Backend
+//const BASE_URL = "http://localhost:5000";
 const BASE_URL = "https://travelsitebackend.herokuapp.com";
-
 
 let dataArray = [];
 var arrayLength = 0;
 
-function userSession(){
-  cookieParsing = document.cookie.split('=')[1];
-  //console.log(cookieParsing);
-  return cookieParsing;
-};
-
-const user = userSession()
-const userObj = {user_id:  user,}
 //get existing trips from database
-fetch(`${BASE_URL}/trips/` + user, 
-  {method: 'POST', 
-  mode: "cors",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify(userObj)})
+fetch(`${BASE_URL}/trips`)
   .then((response) => response.json())
   .then((trip) => {
     console.log("connected to db");
-    console.log(trip);
     let array = trip;
     dataArray.push(array);
     arrayLength = dataArray[0].length;
 
     //Reise Dropdown Menu ausfüllen.
     getNames();
-    //Get Email from session
 
     if (dataArray.length > 0) {
       dataArray[0].forEach((trip) => {
@@ -133,7 +117,7 @@ fetch(`${BASE_URL}/trips/` + user,
                   mode: "cors",
                   headers: {
                     "Content-type": "application/json; charset=UTF-8",
-                  }
+                  },
                 }
               );
               const reload = await window.location.reload();
@@ -163,14 +147,12 @@ fetch(`${BASE_URL}/trips/` + user,
                 end: document.querySelector('input[name="end"]').value,
                 country: document.querySelector('select[class="dropdown"]')
                   .value,
-                  user_id: user,
               };
-              
               const updateTrip = async () => {
                 const response = await fetch(
                   `${BASE_URL}/trips/` + trip.trip_id,
                   {
-                    method: "POST",
+                    method: "PATCH",
                     mode: "cors",
                     headers: {
                       "Content-Type": "application/json",
@@ -212,7 +194,6 @@ fetch(`${BASE_URL}/trips/` + user,
               start: document.querySelector('input[name="start"]').value,
               end: document.querySelector('input[name="end"]').value,
               country: document.querySelector('input[name="country"]').value,
-              user_id: user,
             };
 
             const updateTrip = async () => {
@@ -266,7 +247,6 @@ fetch(`${BASE_URL}/trips/` + user,
               start: start,
               end: end,
               country: country,
-              user_id: user,
             };
             dataArray.push(tableData);
 
