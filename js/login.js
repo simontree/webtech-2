@@ -1,5 +1,6 @@
 //connect Frontend to Backend
-const BASE_URL = "https://travelsitebackend.herokuapp.com";
+// const BASE_URL = "https://travelsitebackend.herokuapp.com";
+const BASE_URL = "http://localhost:5000";
 
 const loginButton = document.querySelector(".loginBtn");
 
@@ -10,7 +11,7 @@ loginButton.addEventListener("click", function () {
     email: mail,
     password: password,
   };
-  
+
   const tryLogin = async () => {
     const response = await fetch(`${BASE_URL}/login`, {
       method: "POST",
