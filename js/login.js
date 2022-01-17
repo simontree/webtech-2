@@ -24,14 +24,24 @@ loginButton.addEventListener("click", function () {
     })
       .then((response) => response.json())
       .then((res) => {
-        return res.status == 200;
+        return res;
       });
-    console.log(response);
+    // console.log(response);
     if (response.status == 200) {
       window.location.replace("map.html");
     } else {
-      alert("Fehler beim Login");
+      alert("Fehler beim Login: " + response.status);
     }
   };
   tryLogin();
 });
+
+async function logout() {
+  const response = await fetch(`${BASE_URL}/logout`, {
+    method: "POST",
+    credentials: "include",
+  });
+  if (response.status == 200) {
+    window.location.href = "index.html";
+  }
+}

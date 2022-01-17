@@ -12,7 +12,10 @@ var map = document.querySelector("#map");
 var mymap = L.map(map).setView([51.505, -0.09], 4);
 let countryList = document.querySelector("#besuchte");
 
-fetch(`${BASE_URL}/trips`)
+fetch(`${BASE_URL}/trips`, {
+  method: "GET",
+  credentials: "include",
+  })
   .then((response) => response.json())
   .then((trip) => {
     let tripsJSON = trip;
