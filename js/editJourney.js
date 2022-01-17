@@ -187,6 +187,34 @@ fetch(`${BASE_URL}/trips`)
             document.querySelector('input[name="end"]').value = "";
             document.querySelector('select[class="dropdown"]').value = "";
           }
+          saveEditBtn.addEventListener("click", (event) => {
+            event.preventDefault();
+            const postData = {
+              name: document.querySelector('input[name="name"]').value,
+              start: document.querySelector('input[name="start"]').value,
+              end: document.querySelector('input[name="end"]').value,
+              country: document.querySelector('input[name="country"]').value,
+            };
+
+            const updateTrip = async () => {
+              const response = fetch(`${BASE_URL}/trips/` + trip.trip_id, {
+                method: "PATCH",
+                mode: "cors",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(postData),
+              });
+              return response.status === 200;
+            };
+            updateTrip();
+            closeForm();
+            // location.reload();
+          });
+          cancelEditBtn.addEventListener("click", (event) => {
+            closeForm();
+            event.stopPropagation();
+          });
         }
 
         if (window.location.pathname === "/reise_hinzufugen.html") {

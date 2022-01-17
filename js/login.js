@@ -11,7 +11,6 @@ loginButton.addEventListener("click", function () {
     email: mail,
     password: password,
   };
-
   const tryLogin = async () => {
     const response = await fetch(`${BASE_URL}/login`, {
       method: "POST",

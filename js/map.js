@@ -4,6 +4,7 @@
  * check if the time is gone and paint the visited countries
  */
 //connect Frontend to Backend
+
 // const BASE_URL = "https://travelsitebackend.herokuapp.com";
 const BASE_URL = "http://localhost:5000";
 
