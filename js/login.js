@@ -16,6 +16,7 @@ loginButton.addEventListener("click", function () {
     const response = await fetch(`${BASE_URL}/login`, {
       method: "POST",
       mode: "cors",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
@@ -26,10 +27,10 @@ loginButton.addEventListener("click", function () {
         return res.status == 200;
       });
     console.log(response);
-    if (response) {
+    if (response.status == 200) {
       window.location.replace("map.html");
     } else {
-      alert("Falsche Login Daten");
+      alert("Fehler beim Login");
     }
   };
   tryLogin();
