@@ -8,8 +8,8 @@ var buttonID = 0;
 const form = document.querySelector(".form-popup");
 
 //connect Frontend to Backend
-//const BASE_URL = "http://localhost:5000";
-const BASE_URL = "https://travelsitebackend.herokuapp.com";
+// const BASE_URL = "https://travelsitebackend.herokuapp.com";
+const BASE_URL = "http://localhost:5000";
 
 let dataArray = [];
 var arrayLength = 0;
