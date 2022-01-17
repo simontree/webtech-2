@@ -21,13 +21,13 @@ loginButton.addEventListener("click", function () {
     })
       .then((response) => response.json())
       .then((res) => {
-        return res.status == 200;
+        return res;
       });
-    console.log(response);
-    if (response) {
+    console.log("RESPONSE " + response.status);
+    if (response.status == 200) {
       window.location.replace("map.html");
     } else {
-      alert("Falsche Login Daten");
+      alert("Falsche Login Daten " + response.status);
     }
   };
   tryLogin();

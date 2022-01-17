@@ -19,11 +19,7 @@ var arrayLength = 0;
 fetch(`${BASE_URL}/trips`,
 {
   method: "GET",
-  mode: "cors",
-  headers: {
-    "Content-Type": "application/json",
-    withCredentials: true
-  }
+  credentials: "include",
 })
   .then((response) => response.json())
   .then((trip) => {
@@ -34,6 +30,7 @@ fetch(`${BASE_URL}/trips`,
     arrayLength = dataArray[0].length;
 
     //Reise Dropdown Menu ausfüllen.
+    //UEQ pa evaluacion de.... proyectos :D es open source
     getNames();
 
     if (dataArray.length > 0) {
