@@ -5,8 +5,8 @@
  */
 //connect Frontend to Backend
 
-// const BASE_URL = "https://travelsitebackend.herokuapp.com";
-const BASE_URL = "http://localhost:5000";
+const BASE_URL = "https://travelsitebackend.herokuapp.com";
+//const BASE_URL = "http://localhost:5000";
 
 var map = document.querySelector("#map");
 //Map erzeugen und view setzen auf Lat/Long
