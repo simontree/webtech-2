@@ -4,14 +4,19 @@
  * check if the time is gone and paint the visited countries
  */
 //connect Frontend to Backend
+
 const BASE_URL = "https://travelsitebackend.herokuapp.com";
 //const BASE_URL = "http://localhost:5000";
+
 var map = document.querySelector("#map");
 //Map erzeugen und view setzen auf Lat/Long
 var mymap = L.map(map).setView([51.505, -0.09], 4);
 let countryList = document.querySelector("#besuchte");
 
-fetch(`${BASE_URL}/trips`)
+fetch(`${BASE_URL}/trips`, {
+  method: "GET",
+  credentials: "include",
+  })
   .then((response) => response.json())
   .then((trip) => {
     let tripsJSON = trip;

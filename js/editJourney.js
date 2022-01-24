@@ -8,14 +8,17 @@ var buttonID = 0;
 const form = document.querySelector(".form-popup");
 
 //connect Frontend to Backend
-//const BASE_URL = "http://localhost:5000";
 const BASE_URL = "https://travelsitebackend.herokuapp.com";
+//const BASE_URL = "http://localhost:5000";
 
 let dataArray = [];
 var arrayLength = 0;
 
 //get existing trips from database
-fetch(`${BASE_URL}/trips`)
+fetch(`${BASE_URL}/trips`,{
+  method: "GET",
+  credentials: "include",
+})
   .then((response) => response.json())
   .then((trip) => {
     console.log("connected to db");
@@ -115,6 +118,7 @@ fetch(`${BASE_URL}/trips`)
                 {
                   method: "DELETE",
                   mode: "cors",
+                  credentials: "include",
                   headers: {
                     "Content-type": "application/json; charset=UTF-8",
                   },
@@ -154,6 +158,7 @@ fetch(`${BASE_URL}/trips`)
                   {
                     method: "PATCH",
                     mode: "cors",
+                    credentials: "include",
                     headers: {
                       "Content-Type": "application/json",
                     },
@@ -254,6 +259,7 @@ fetch(`${BASE_URL}/trips`)
               const response = await fetch(`${BASE_URL}/trips`, {
                 method: "POST",
                 mode: "cors",
+                credentials: "include",
                 headers: {
                   "Content-Type": "application/json",
                 },
