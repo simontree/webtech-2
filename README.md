@@ -8,13 +8,7 @@
 
 3. für lokale Entwicklung URLs in den Files editJourney.js, login.js, map.js auf  gegebene localhost-Adresse ändern
 
-## Netlify
-
-Link: https://ecstatic-wright-4c8412.netlify.app/
-
 
 ## Backend
-
-Heroku: https://git.heroku.com/travelsitebackend.git
 
 Lokal: https://github.com/simontree/travelsiteOnlyBackend
